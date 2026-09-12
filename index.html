@@ -9,7 +9,7 @@
 :root{--black:#0b0b0d;--black2:#151518;--gold:#c9a34a;--g:#c9a34a;--silver:#c7c9cc;--white:#fff;--muted:#9da1a6;--line:#303036;--ok:#79b98a}
 *{box-sizing:border-box}body{margin:0;background:#f3f3f1;color:#111;font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Arial,sans-serif}
 .app{max-width:720px;margin:auto;min-height:100vh;background:#f7f7f5}.top{background:linear-gradient(145deg,#080809,#1a1a1e);color:#fff;padding:14px 14px 12px;position:sticky;top:0;z-index:5;border-bottom:2px solid var(--gold)}
-.brand{display:flex;align-items:center;justify-content:center;text-align:center;width:100%}.brand img{width:min(96vw,620px);height:auto;max-height:175px;object-fit:contain;display:block;margin:0 auto}.brand h1,.brand small{display:none}
+.brand{display:flex;align-items:center;justify-content:center;text-align:center;width:100%}.brand img{width:min(96vw,620px);height:auto;max-height:175px;object-fit:contain;object-position:center;display:block;margin:0 auto}.brand h1,.brand small{display:none}
 .quote-kicker{text-align:center;color:var(--g);font-weight:800;letter-spacing:2px;font-size:12px;margin-top:3px}.tabs{display:flex;gap:7px;margin-top:12px;overflow:auto;justify-content:center}.tabs button{border:1px solid #3b3b40;background:#19191d;color:#ddd;border-radius:20px;padding:9px 13px;white-space:nowrap}.tabs button.active{background:var(--gold);color:#111;border-color:var(--gold);font-weight:700}
 main{padding:16px}.card{background:#fff;border:1px solid #ddd;border-radius:16px;padding:16px;margin-bottom:14px;box-shadow:0 3px 12px #00000008}.section-title{font-size:13px;text-transform:uppercase;letter-spacing:1.4px;font-weight:800;margin:0 0 12px;color:#333}
 .grid{display:grid;grid-template-columns:1fr 1fr;gap:10px}.field{margin-bottom:10px}.field.full{grid-column:1/-1}.field label{display:block;font-size:12px;font-weight:700;color:#555;margin-bottom:5px}.field input,.field textarea,.field select{width:100%;padding:12px;border:1px solid #cfcfd2;border-radius:10px;font:inherit;background:#fff}.field textarea{min-height:72px;resize:vertical}
@@ -29,9 +29,7 @@ main{padding:16px}.card{background:#fff;border:1px solid #ddd;border-radius:16px
 <body>
 <div class="app">
 <header class="top">
-  <div class="brand">
-    <img src="data:image/png;base64,REPLACE_WITH_APPROVED_LOGO_BASE64" alt="Lunaris Aerial Imaging approved logo">
-  </div>
+  <div class="brand"><img src="./lunaris-approved-logo.png" alt="Lunaris Aerial Imaging approved logo"></div>
   <div class="quote-kicker">MOBILE QUOTE GENERATOR</div>
   <div class="tabs">
     <button id="tabQuote" class="active" onclick="showTab('quote')">New Quote</button>
@@ -39,72 +37,28 @@ main{padding:16px}.card{background:#fff;border:1px solid #ddd;border-radius:16px
     <button id="tabData" onclick="showTab('data')">Sync / Data</button>
   </div>
 </header>
-
 <main>
 <section id="quoteTab">
-  <div class="card">
-    <p class="section-title">Customer</p>
-    <div class="grid">
-      <div class="field"><label>Name</label><input id="customer" placeholder="Customer name"></div>
-      <div class="field"><label>Phone</label><input id="phone" inputmode="tel" placeholder="Phone"></div>
-      <div class="field"><label>Email</label><input id="email" type="email" placeholder="Email"></div>
-      <div class="field"><label>Project Address</label><input id="address" placeholder="Property / project address"></div>
-      <div class="field"><label>Customer Type</label><select id="ctype"><option>Residential</option><option>Commercial</option><option>Real Estate</option><option>Government</option><option>Other</option></select></div>
-      <div class="field"><label>Quote Valid Through</label><input id="valid" type="date"></div>
-      <div class="field full"><label>Project Notes</label><textarea id="notes" placeholder="Scope, property details, requested deliverables..."></textarea></div>
-    </div>
-  </div>
-
-  <div class="card">
-    <p class="section-title">Services & Pricing</p>
-    <div id="services"></div>
-    <button class="btn ghost" onclick="addService()">＋ Add Service</button>
-    <p class="note" style="margin-top:10px">The current master pricing reference documents Commercial Building Documentation at a $750 starting/target price. Other service prices remain editable until the Lunaris pricing catalog is finalized.</p>
-  </div>
-
-  <div class="card">
-    <p class="section-title">Adjustments</p>
-    <div class="grid">
-      <div class="field"><label>Travel Fee ($)</label><input id="travel" type="number" min="0" step="0.01" value="0" oninput="calc()"></div>
-      <div class="field"><label>Rush / After-Hours ($)</label><input id="rush" type="number" min="0" step="0.01" value="0" oninput="calc()"></div>
-      <div class="field"><label>Complexity Adjustment (%)</label><input id="complexity" type="number" min="0" step="0.1" value="0" oninput="calc()"></div>
-      <div class="field"><label>Discount</label><select id="discount" onchange="calc()"><option value="0">None</option><option value="10">Veteran — 10%</option><option value="15">Veteran + First Responder — 15%</option><option value="10">Other approved — 10%</option><option value="15">Other approved — 15%</option></select></div>
-    </div>
-  </div>
-
-  <div class="total">
-    <div class="totalline"><span>Services</span><b id="servicesTotal">$0.00</b></div>
-    <div class="totalline"><span>Travel</span><b id="travelTotal">$0.00</b></div>
-    <div class="totalline"><span>Rush</span><b id="rushTotal">$0.00</b></div>
-    <div class="totalline"><span>Complexity</span><b id="complexTotal">$0.00</b></div>
-    <div class="totalline"><span>Discount</span><b id="discountTotal">-$0.00</b></div>
-    <div class="totalline grand"><span>QUOTE TOTAL</span><span id="grandTotal">$0.00</span></div>
-  </div>
-
-  <div class="card">
-    <div class="row">
-      <button class="btn primary" onclick="saveQuote()">Save Quote</button>
-      <button class="btn gold" onclick="printQuote()">Print / PDF</button>
-      <button class="btn ghost" onclick="newQuote()">Clear</button>
-    </div>
-    <p id="status" class="note" style="margin-bottom:0">Ready — stored locally on this device.</p>
-  </div>
+  <div class="card"><p class="section-title">Customer</p><div class="grid">
+    <div class="field"><label>Name</label><input id="customer" placeholder="Customer name"></div><div class="field"><label>Phone</label><input id="phone" inputmode="tel" placeholder="Phone"></div>
+    <div class="field"><label>Email</label><input id="email" type="email" placeholder="Email"></div><div class="field"><label>Project Address</label><input id="address" placeholder="Property / project address"></div>
+    <div class="field"><label>Customer Type</label><select id="ctype"><option>Residential</option><option>Commercial</option><option>Real Estate</option><option>Government</option><option>Other</option></select></div><div class="field"><label>Quote Valid Through</label><input id="valid" type="date"></div>
+    <div class="field full"><label>Project Notes</label><textarea id="notes" placeholder="Scope, property details, requested deliverables..."></textarea></div>
+  </div></div>
+  <div class="card"><p class="section-title">Services & Pricing</p><div id="services"></div><button class="btn ghost" onclick="addService()">＋ Add Service</button><p class="note" style="margin-top:10px">The current master pricing reference documents Commercial Building Documentation at a $750 starting/target price. Other service prices remain editable until the Lunaris pricing catalog is finalized.</p></div>
+  <div class="card"><p class="section-title">Adjustments</p><div class="grid">
+    <div class="field"><label>Travel Fee ($)</label><input id="travel" type="number" min="0" step="0.01" value="0" oninput="calc()"></div><div class="field"><label>Rush / After-Hours ($)</label><input id="rush" type="number" min="0" step="0.01" value="0" oninput="calc()"></div>
+    <div class="field"><label>Complexity Adjustment (%)</label><input id="complexity" type="number" min="0" step="0.1" value="0" oninput="calc()"></div><div class="field"><label>Discount</label><select id="discount" onchange="calc()"><option value="0">None</option><option value="10">Veteran — 10%</option><option value="15">Veteran + First Responder — 15%</option><option value="10">Other approved — 10%</option><option value="15">Other approved — 15%</option></select></div>
+  </div></div>
+  <div class="total"><div class="totalline"><span>Services</span><b id="servicesTotal">$0.00</b></div><div class="totalline"><span>Travel</span><b id="travelTotal">$0.00</b></div><div class="totalline"><span>Rush</span><b id="rushTotal">$0.00</b></div><div class="totalline"><span>Complexity</span><b id="complexTotal">$0.00</b></div><div class="totalline"><span>Discount</span><b id="discountTotal">-$0.00</b></div><div class="totalline grand"><span>QUOTE TOTAL</span><span id="grandTotal">$0.00</span></div></div>
+  <div class="card"><div class="row"><button class="btn primary" onclick="saveQuote()">Save Quote</button><button class="btn gold" onclick="printQuote()">Print / PDF</button><button class="btn ghost" onclick="newQuote()">Clear</button></div><p id="status" class="note" style="margin-bottom:0">Ready — stored locally on this device.</p></div>
 </section>
-
-<section id="savedTab" class="hidden">
-  <div class="card"><p class="section-title">Saved Quotes</p><div id="quoteList" class="quote-list"></div></div>
-</section>
-<section id="dataTab" class="hidden">
-  <div class="card"><p class="section-title">Local CRM Sync Bridge</p><p class="note">This zero-cost prototype stores quote records in the browser. Export the data as JSON to move it into the home Lunaris CRM later. Import restores records onto another device.</p><div class="row"><button class="btn primary" onclick="exportData()">Export CRM Data</button><label class="btn ghost" style="text-align:center">Import CRM Data<input id="importFile" type="file" accept=".json" style="display:none" onchange="importData(event)"></label></div><p class="note"><span class="badge synced">● LOCAL STORAGE</span> No paid backend or subscription is used by this prototype.</p></div>
-</section>
-</main>
-<div class="footer">Lunaris Aerial Imaging • Veteran Owned • Texas Based • Licensed & Insured</div>
+<section id="savedTab" class="hidden"><div class="card"><p class="section-title">Saved Quotes</p><div id="quoteList" class="quote-list"></div></div></section>
+<section id="dataTab" class="hidden"><div class="card"><p class="section-title">Local CRM Sync Bridge</p><p class="note">This zero-cost prototype stores quote records in the browser. Export the data as JSON to move it into the home Lunaris CRM later. Import restores records onto another device.</p><div class="row"><button class="btn primary" onclick="exportData()">Export CRM Data</button><label class="btn ghost" style="text-align:center">Import CRM Data<input id="importFile" type="file" accept=".json" style="display:none" onchange="importData(event)"></label></div><p class="note"><span class="badge synced">● LOCAL STORAGE</span> No paid backend or subscription is used by this prototype.</p></div></section>
+</main><div class="footer">Lunaris Aerial Imaging • Veteran Owned • Texas Based • Licensed & Insured</div>
 </div>
 <script>
-const KEY='lunaris_quotes_v1';
-const CATALOG=[{name:'Commercial Building Documentation',price:750},{name:'Aerial Photography',price:0},{name:'Aerial Video',price:0},{name:'Real Estate Package',price:0},{name:'Roof / Property Imaging',price:0},{name:'Construction Progress',price:0},{name:'Emergency Support',price:0},{name:'Mapping',price:0},{name:'Custom Service',price:0}];
-let services=[];
-function money(n){return new Intl.NumberFormat('en-US',{style:'currency',currency:'USD'}).format(n||0)}
+const KEY='lunaris_quotes_v1';let services=[];function money(n){return new Intl.NumberFormat('en-US',{style:'currency',currency:'USD'}).format(n||0)}
 function showTab(t){['quote','saved','data'].forEach(x=>document.getElementById(x+'Tab').classList.toggle('hidden',x!==t));['Quote','Saved','Data'].forEach(x=>document.getElementById('tab'+x).classList.toggle('active',x.toLowerCase()===t));if(t==='saved')renderSaved()}
 function addService(name='',price=0){services.push({name:name||'Custom Service',qty:1,price:Number(price)||0});renderServices();calc()}
 function renderServices(){const box=document.getElementById('services');box.innerHTML='';services.forEach((s,i)=>{const d=document.createElement('div');d.className='service';d.innerHTML=`<div><strong>${s.name}</strong><small>Unit price</small></div><input type="number" min="0" step="0.01" value="${s.price}" aria-label="price"><button title="Remove">×</button>`;const inp=d.querySelector('input');inp.oninput=()=>{s.price=Number(inp.value)||0;calc()};d.querySelector('button').onclick=()=>{services.splice(i,1);renderServices();calc()};box.appendChild(d)})}
