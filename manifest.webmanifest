@@ -6,5 +6,5 @@
   "background_color":"#0b0b0d",
   "theme_color":"#0b0b0d",
   "description":"Lunaris Aerial Imaging mobile quote generator.",
-  "icons":[{"src":"./lunaris-approved-mark.png","sizes":"120x80","type":"image/png","purpose":"any"}]
+  "icons":[{"src":"./lunaris-crm-icon.svg","sizes":"180x180","type":"image/svg+xml","purpose":"any maskable"}]
 }
