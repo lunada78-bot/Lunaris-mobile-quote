@@ -1,0 +1,37 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Lunaris Quote — Update</title>
+<style>
+body{font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Arial,sans-serif;background:#0b0b0d;color:#fff;display:flex;align-items:center;justify-content:center;min-height:100vh;margin:0;text-align:center}
+.box{padding:28px;max-width:420px}
+h1{color:#c9a34a;margin-bottom:10px}
+p{color:#ccc;line-height:1.5}
+</style>
+</head>
+<body>
+<div class="box">
+<h1>LUNARIS</h1>
+<p>Updating Lunaris Quote to v20…</p>
+<p id="status">Please wait.</p>
+</div>
+<script>
+(async()=>{
+  const status=document.getElementById('status');
+  try{
+    if('serviceWorker' in navigator){
+      const reg=await navigator.serviceWorker.register('./service-worker.js?v=20',{updateViaCache:'none'});
+      await reg.update();
+      await navigator.serviceWorker.ready;
+    }
+    status.textContent='Update complete. Opening v20…';
+  }catch(e){
+    status.textContent='Opening v20…';
+  }
+  setTimeout(()=>location.replace('./index.html?v=20&refresh='+Date.now()),500);
+})();
+</script>
+</body>
+</html>
