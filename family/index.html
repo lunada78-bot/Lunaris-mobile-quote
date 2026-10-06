@@ -1,0 +1,232 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<meta name="theme-color" content="#0b1d33">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-title" content="Luna Family CRM">
+<title>Luna Family CRM</title>
+<style>
+:root{--navy:#0b1d33;--cream:#f7f2e7;--gold:#c9a34a;--teal:#237d7b;--ink:#17202a;--muted:#69727d;--line:#d9dde2;--white:#fff;--bad:#a63d40;--good:#287a52}
+*{box-sizing:border-box}body{margin:0;background:#e9ecef;color:var(--ink);font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Arial,sans-serif}.app{max-width:1180px;margin:auto;min-height:100vh;background:var(--cream)}
+header{background:var(--navy);color:#fff;padding:12px 14px;border-bottom:3px solid var(--gold);position:sticky;top:0;z-index:20}.brand{display:flex;align-items:center;gap:12px}.cat{width:58px;height:58px;border-radius:50%;overflow:hidden;background:#fff;border:2px solid var(--gold);display:flex}.cat img{width:100%;height:100%;object-fit:cover}.brand h1{font-size:21px;margin:0;font-weight:900;letter-spacing:1px}.brand p{margin:3px 0 0;color:#d8c27d;font-size:11px;font-weight:800;letter-spacing:1.6px}.tabs{display:flex;gap:7px;overflow:auto;margin-top:12px;padding-bottom:2px}.tabs button{white-space:nowrap;border:1px solid #42536a;background:#132a46;color:#e8edf4;border-radius:20px;padding:10px 13px;font-weight:800}.tabs button.on{background:var(--gold);color:#111;border-color:var(--gold)}
+main{padding:14px}.view{display:none}.view.on{display:block}.grid{display:grid;grid-template-columns:repeat(4,1fr);gap:12px}.grid2{display:grid;grid-template-columns:repeat(2,1fr);gap:12px}.card{background:#fff;border:1px solid var(--line);border-radius:15px;padding:15px;margin-bottom:13px;box-shadow:0 2px 8px #00000008}.title{margin:0 0 10px;font-size:13px;text-transform:uppercase;letter-spacing:1.2px;font-weight:900}.metric{font-size:27px;font-weight:950;color:var(--navy)}.sub{font-size:11px;color:var(--muted);margin-top:3px}.bar{height:10px;background:#e7e9ec;border-radius:99px;overflow:hidden;margin-top:8px}.bar i{display:block;height:100%;background:var(--teal);border-radius:99px}.row{display:flex;gap:8px;flex-wrap:wrap;align-items:center}.row>*{flex:1}.btn{border:0;border-radius:10px;padding:11px 14px;font-weight:850;min-height:42px}.primary{background:var(--navy);color:#fff}.gold{background:var(--gold);color:#111}.teal{background:var(--teal);color:#fff}.ghost{background:#eef0f2}.danger{background:#f4dddd;color:#76292c}.field label{display:block;font-size:11px;color:#59616b;font-weight:850;margin-bottom:4px}.field input,.field select,.field textarea{width:100%;padding:10px;border:1px solid #cdd2d8;border-radius:9px;background:#fff;font:inherit;min-height:42px}.field textarea{min-height:80px}.table{width:100%;border-collapse:collapse;font-size:13px}.table th,.table td{padding:9px 7px;border-bottom:1px solid #e1e4e8;text-align:left;vertical-align:top}.table th{background:#f1f3f5;font-size:11px;text-transform:uppercase;letter-spacing:.6px}.pill{display:inline-block;padding:4px 8px;border-radius:99px;background:#e8f2f1;color:#176461;font-size:10px;font-weight:900}.warn{background:#fff4dc;border-left:4px solid var(--gold);padding:11px;border-radius:8px;font-size:12px}.good{color:var(--good);font-weight:900}.bad{color:var(--bad);font-weight:900}.sectionhead{display:flex;justify-content:space-between;align-items:center;gap:8px;margin-bottom:9px}.sectionhead h2{font-size:17px;margin:0}.list{display:grid;gap:8px}.item{border:1px solid var(--line);border-radius:10px;padding:11px;background:#fff}.small{font-size:11px;color:var(--muted)}.right{text-align:right}.chart{height:180px;width:100%;background:#fafafa;border:1px solid var(--line);border-radius:10px}.foot{text-align:center;padding:18px;color:#737b84;font-size:11px}@media(max-width:820px){.grid{grid-template-columns:repeat(2,1fr)}.grid2{grid-template-columns:1fr}}@media(max-width:520px){main{padding:9px}.grid{grid-template-columns:1fr 1fr}.metric{font-size:23px}.table{font-size:12px}.hideMob{display:none}.cat{width:52px;height:52px}}
+</style>
+</head>
+<body>
+<div class="app">
+<header>
+  <div class="brand">
+    <div class="cat"><img alt="Luna family cat logo" src="data:image/webp;base64,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"></div>
+    <div><h1>LUNA FAMILY CRM</h1><p>CREDIT • DEBT • CASH • HOME • GOALS</p></div>
+  </div>
+  <div class="tabs">
+    <button class="on" onclick="show('dash',this)">Dashboard</button>
+    <button onclick="show('budget',this)">Budget</button>
+    <button onclick="show('debts',this)">Debts</button>
+    <button onclick="show('credit',this)">Credit</button>
+    <button onclick="show('income',this)">Income</button>
+    <button onclick="show('savings',this)">Savings</button>
+    <button onclick="show('collections',this)">Collections</button>
+    <button onclick="show('goals',this)">Goals</button>
+    <button onclick="show('home',this)">Home Plan</button>
+    <button onclick="show('crm',this)">CRM</button>
+    <button onclick="show('data',this)">Data</button>
+  </div>
+</header>
+
+<main>
+<section id="dash" class="view on">
+ <div class="card"><div class="sectionhead"><div><h2>2027 Financial Command Center</h2><div class="small">Spreadsheet replacement • Start date: January 1, 2027</div></div><span class="pill">LOCAL-FIRST</span></div>
+ <div class="warn">Primary objective: rebuild credit, eliminate high-cost debt and collections, grow cash reserves, and be mortgage-ready for the November 1, 2027 keys target.</div></div>
+ <div class="grid">
+  <div class="card"><p class="title">Credit</p><div class="metric" id="mCredit">—</div><div class="sub">Current → goal</div><div class="bar"><i id="creditBar"></i></div></div>
+  <div class="card"><p class="title">Debt</p><div class="metric" id="mDebt">—</div><div class="sub">Tracked balances</div></div>
+  <div class="card"><p class="title">Cash</p><div class="metric" id="mCash">—</div><div class="sub">Savings + reserves</div></div>
+  <div class="card"><p class="title">Monthly Income</p><div class="metric" id="mIncome">—</div><div class="sub">Household tracked</div></div>
+ </div>
+ <div class="grid2">
+  <div class="card"><p class="title">Debt vs Savings</p><svg id="chart" class="chart" viewBox="0 0 700 180"></svg></div>
+  <div class="card"><p class="title">2027 Scoreboard</p><table class="table"><tbody id="scoreboard"></tbody></table></div>
+ </div>
+ <div class="card"><p class="title">Next Actions</p><div id="nextActions" class="list"></div></div>
+</section>
+
+<section id="budget" class="view">
+ <div class="card"><div class="sectionhead"><h2>Household Budget</h2><button class="btn gold" onclick="saveBudget()">Save Budget</button></div>
+  <div class="grid2">
+   <div class="field"><label>Monthly household income</label><input id="bIncome" type="number"></div>
+   <div class="field"><label>Monthly savings target</label><input id="bSave" type="number"></div>
+   <div class="field"><label>Housing / rent</label><input id="bRent" type="number"></div>
+   <div class="field"><label>Utilities / internet / phones</label><input id="bUtil" type="number"></div>
+   <div class="field"><label>Insurance</label><input id="bIns" type="number"></div>
+   <div class="field"><label>Food</label><input id="bFood" type="number"></div>
+   <div class="field"><label>Gas / transportation</label><input id="bGas" type="number"></div>
+   <div class="field"><label>Subscriptions / misc.</label><input id="bMisc" type="number"></div>
+  </div>
+ </div>
+ <div class="grid">
+  <div class="card"><p class="title">Debt payments</p><div class="metric" id="budgetDebt">—</div></div>
+  <div class="card"><p class="title">Living costs</p><div class="metric" id="budgetLiving">—</div></div>
+  <div class="card"><p class="title">Savings</p><div class="metric" id="budgetSavings">—</div></div>
+  <div class="card"><p class="title">Unallocated</p><div class="metric" id="budgetFree">—</div></div>
+ </div>
+</section>
+
+<section id="debts" class="view">
+ <div class="card"><div class="sectionhead"><h2>Debt Payoff CRM</h2><div class="row"><button class="btn gold" onclick="addDebt()">＋ Debt</button><button class="btn primary" onclick="sortDebts()">Sort Strategy</button></div></div>
+ <div class="small">Track original balance, current balance, APR, minimum, due date, status, payoff priority and notes. Strategy can be Avalanche or Snowball.</div>
+ <div style="overflow:auto"><table class="table"><thead><tr><th>Account</th><th>Type</th><th>Balance</th><th>APR</th><th>Min</th><th>Priority</th><th>Status</th><th></th></tr></thead><tbody id="debtRows"></tbody></table></div></div>
+ <div class="grid"><div class="card"><p class="title">Total Debt</p><div class="metric" id="debtTotal">—</div></div><div class="card"><p class="title">Monthly Minimums</p><div class="metric" id="debtMin">—</div></div><div class="card"><p class="title">Paid Down</p><div class="metric" id="debtPaid">—</div></div><div class="card"><p class="title">Target Method</p><select id="method" onchange="state.strategy=this.value;save()"><option>Avalanche</option><option>Snowball</option></select></div></div>
+</section>
+
+<section id="credit" class="view">
+ <div class="card"><div class="sectionhead"><h2>Credit Rebuild</h2><button class="btn gold" onclick="addCredit()">＋ Score Entry</button></div>
+ <div class="grid"><div class="card"><p class="title">Current Score</p><div class="metric" id="cNow">—</div></div><div class="card"><p class="title">Goal</p><div class="metric" id="cGoal">—</div></div><div class="card"><p class="title">Change</p><div class="metric" id="cChange">—</div></div><div class="card"><p class="title">Utilization Target</p><div class="metric">&lt;10%</div></div></div>
+ <div style="overflow:auto"><table class="table"><thead><tr><th>Date</th><th>Bureau</th><th>Score</th><th>Utilization</th><th>Event / Reason</th><th></th></tr></thead><tbody id="creditRows"></tbody></table></div></div>
+ <div class="card"><p class="title">Credit Action Queue</p><div class="list" id="creditActions"></div></div>
+</section>
+
+<section id="income" class="view">
+ <div class="card"><div class="sectionhead"><h2>Income CRM</h2><button class="btn gold" onclick="addIncome()">＋ Income</button></div>
+ <div style="overflow:auto"><table class="table"><thead><tr><th>Person</th><th>Source</th><th>Gross / Month</th><th>Net / Month</th><th>Frequency</th><th>Start</th><th>Status</th><th></th></tr></thead><tbody id="incomeRows"></tbody></table></div></div>
+</section>
+
+<section id="savings" class="view">
+ <div class="card"><div class="sectionhead"><h2>Savings & Cash Reserves</h2><button class="btn gold" onclick="addSavings()">＋ Account</button></div>
+ <div style="overflow:auto"><table class="table"><thead><tr><th>Account</th><th>Purpose</th><th>Balance</th><th>Monthly Add</th><th>Target</th><th></th></tr></thead><tbody id="saveRows"></tbody></table></div></div>
+ <div class="grid"><div class="card"><p class="title">Cash Total</p><div class="metric" id="cashTotal">—</div></div><div class="card"><p class="title">Home Purchase Funds</p><div class="metric" id="homeFunds">—</div></div><div class="card"><p class="title">Emergency Reserve</p><div class="metric" id="emergency">—</div></div><div class="card"><p class="title">Monthly Contributions</p><div class="metric" id="cashAdd">—</div></div></div>
+</section>
+
+<section id="collections" class="view">
+ <div class="card"><div class="sectionhead"><h2>Collections / Negative Accounts</h2><button class="btn gold" onclick="addCollection()">＋ Collection</button></div>
+ <div style="overflow:auto"><table class="table"><thead><tr><th>Creditor / Collector</th><th>Original</th><th>Balance</th><th>Type</th><th>Action</th><th>Next Date</th><th>Status</th><th></th></tr></thead><tbody id="collectionRows"></tbody></table></div></div>
+ <div class="card"><p class="title">Collection Workflow</p><div class="list"><div class="item"><b>1. Verify</b><div class="small">Confirm debt, ownership, balance, dates and reporting.</div></div><div class="item"><b>2. Document</b><div class="small">Store letters, statements, settlement offers and responses.</div></div><div class="item"><b>3. Act</b><div class="small">Track dispute, validation, settlement or payment plan.</div></div><div class="item"><b>4. Confirm</b><div class="small">Record outcome and credit-report impact.</div></div></div></div>
+</section>
+
+<section id="goals" class="view">
+ <div class="card"><div class="sectionhead"><h2>Goals & Milestones</h2><button class="btn gold" onclick="addGoal()">＋ Goal</button></div>
+ <div id="goalList" class="list"></div></div>
+</section>
+
+<section id="home" class="view">
+ <div class="card"><div class="sectionhead"><h2>VA Home Purchase Plan</h2><span class="pill">KEYS: NOV 1, 2027</span></div>
+ <div class="grid2">
+  <div class="field"><label>Target home price</label><input id="hPrice" type="number" onchange="saveHome()"></div>
+  <div class="field"><label>Planning rate %</label><input id="hRate" type="number" step=".01" onchange="saveHome()"></div>
+  <div class="field"><label>Property tax %</label><input id="hTax" type="number" step=".01" onchange="saveHome()"></div>
+  <div class="field"><label>Insurance / month</label><input id="hIns" type="number" onchange="saveHome()"></div>
+  <div class="field"><label>HOA / month</label><input id="hHoa" type="number" onchange="saveHome()"></div>
+  <div class="field"><label>Earnest / good-faith money</label><input id="hEarnest" type="number" onchange="saveHome()"></div>
+  <div class="field"><label>Closing + prepaids</label><input id="hClose" type="number" onchange="saveHome()"></div>
+  <div class="field"><label>Furniture / startup</label><input id="hFurniture" type="number" onchange="saveHome()"></div>
+  <div class="field"><label>Emergency reserve</label><input id="hReserve" type="number" onchange="saveHome()"></div>
+ </div></div>
+ <div class="grid"><div class="card"><p class="title">Estimated P&I</p><div class="metric" id="pi">—</div></div><div class="card"><p class="title">Full Housing</p><div class="metric" id="housing">—</div></div><div class="card"><p class="title">Purchase Cash Needed</p><div class="metric" id="cashNeed">—</div></div><div class="card"><p class="title">DTI</p><div class="metric" id="homeDti">—</div></div></div>
+ <div class="card"><p class="title">2027 Timeline</p><div class="list"><div class="item"><b>Jan–Mar</b> — credit + cash sprint</div><div class="item"><b>Apr–May</b> — lender preparation</div><div class="item"><b>June</b> — VA pre-approval target</div><div class="item"><b>Jun–Jul</b> — begin house shopping</div><div class="item"><b>Aug 15</b> — contract target</div><div class="item"><b>Aug–Oct</b> — contract to close</div><div class="item"><b>Nov 1</b> — keys in hand</div></div></div>
+</section>
+
+<section id="crm" class="view">
+ <div class="card"><div class="sectionhead"><h2>Family CRM</h2><button class="btn gold" onclick="addTask()">＋ Task</button></div>
+ <div class="grid2">
+  <div><p class="title">People</p><div class="list"><div class="item"><b>Darius</b><div class="small">Primary financial owner</div></div><div class="item"><b>Lennie</b><div class="small">Household member • income optional while in nursing school</div></div></div></div>
+  <div><p class="title">Recurring Financial Tasks</p><div id="taskList" class="list"></div></div>
+ </div></div>
+ <div class="card"><p class="title">Notes / Records</p><textarea id="crmNote" placeholder="Add a family financial note, lender note, creditor call, promise date, or decision..."></textarea><div class="row" style="margin-top:8px"><button class="btn primary" onclick="addNote()">Save Note</button></div><div id="notesList" class="list" style="margin-top:9px"></div></div>
+</section>
+
+<section id="data" class="view">
+ <div class="card"><h2>Data & Monthly Close</h2><p class="small">This replaces the spreadsheet workflow. Everything is stored on this device until you export a backup.</p>
+ <div class="row"><button class="btn gold" onclick="exportData()">Export Full CRM Backup</button><button class="btn ghost" onclick="document.getElementById('importFile').click()">Import Backup</button><button class="btn primary" onclick="window.print()">Print / Save PDF</button><input id="importFile" type="file" accept=".json" hidden onchange="importData(event)"></div></div>
+ <div class="card"><p class="title">Monthly Close Checklist</p><div id="closeList" class="list"></div></div>
+ <div class="card"><p class="title">System Rules</p><div class="list"><div class="item">Update balances after statements post.</div><div class="item">Record every collection action and promised date.</div><div class="item">Enter every credit score change with a reason.</div><div class="item">Reconcile income and savings monthly.</div><div class="item">Export a backup at each monthly close.</div></div></div>
+</section>
+</main>
+<div class="foot">Luna Family CRM • Financial planning tool • Not lender or credit-bureau approval.</div>
+</div>
+
+<script>
+const KEY='luna-family-crm-v1';
+const logoData='data:image/webp;base64,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';
+const money=n=>'$'+(Number(n)||0).toLocaleString(undefined,{minimumFractionDigits:0,maximumFractionDigits:0});
+const uid=()=>Date.now().toString(36)+Math.random().toString(36).slice(2,6);
+const esc=s=>String(s??'').replace(/[&<>"]/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[c]));
+let state=JSON.parse(localStorage.getItem(KEY)||'null')||{
+ strategy:'Avalanche',
+ budget:{income:9451,save:1000,rent:2200,util:524,ins:348,food:500,gas:200,misc:1550},
+ debts:[
+  {id:uid(),name:'Military Star',type:'Credit Card',balance:6543.41,original:6543.41,apr:0,min:160,priority:2,status:'Open'},
+  {id:uid(),name:'USAA AMEX',type:'Credit Card',balance:13752.15,original:13752.15,apr:0,min:340,priority:1,status:'Open'},
+  {id:uid(),name:'Credit9 / Americor',type:'Settlement',balance:9816,original:9816,apr:0,min:1340.40,priority:1,status:'Settlement'},
+  {id:uid(),name:'2019 Ram 1500',type:'Auto',balance:23206.94,original:23206.94,apr:0,min:473.93,priority:3,status:'Open'},
+  {id:uid(),name:'Alimony / DFAS',type:'Obligation',balance:0,original:0,apr:0,min:1842,priority:4,status:'Recurring'}
+ ],
+ credit:{goal:680,history:[{id:uid(),date:'2026-10-01',bureau:'TransUnion',score:566,util:'',reason:'Starting baseline'}]},
+ income:[
+  {id:uid(),person:'Darius',source:'VA Disability',gross:4298.04,net:4298.04,frequency:'Monthly',start:'',status:'Active'},
+  {id:uid(),person:'Darius',source:'Navy Retirement',gross:2852.51,net:2852.51,frequency:'Monthly',start:'',status:'Active'},
+  {id:uid(),person:'Lennie',source:'Household / Other',gross:2700,net:2700,frequency:'Monthly',start:'',status:'Active'}
+ ],
+ savings:[
+  {id:uid(),name:'Primary Savings',purpose:'Emergency / General',balance:0,add:1000,target:15000},
+  {id:uid(),name:'Home Purchase Fund',purpose:'VA Home',balance:0,add:0,target:25000}
+ ],
+ collections:[],
+ goals:[
+  {id:uid(),name:'Credit score',target:'680+',current:'566',due:'2027-06-01',status:'In Progress'},
+  {id:uid(),name:'Emergency reserve',target:'$15,000',current:'$0',due:'2027-08-01',status:'In Progress'},
+  {id:uid(),name:'VA pre-approval',target:'June 2027',current:'Not started',due:'2027-06-15',status:'Planned'},
+  {id:uid(),name:'Contract',target:'Aug 15, 2027',current:'Not started',due:'2027-08-15',status:'Planned'},
+  {id:uid(),name:'Keys in hand',target:'Nov 1, 2027',current:'Not started',due:'2027-11-01',status:'Planned'}
+ ],
+ tasks:[
+  {id:uid(),name:'Update all debt balances',due:'Monthly',status:'Open'},
+  {id:uid(),name:'Record credit scores',due:'Monthly',status:'Open'},
+  {id:uid(),name:'Reconcile savings',due:'Monthly',status:'Open'},
+  {id:uid(),name:'Export CRM backup',due:'Month-end',status:'Open'}
+ ],
+ notes:[],
+ home:{price:350000,rate:7.24,tax:2,ins:180,hoa:0,earnest:5000,close:9000,furniture:5000,reserve:15000},
+ close:{}
+};
+function save(){localStorage.setItem(KEY,JSON.stringify(state));renderAll()}
+function show(id,btn){document.querySelectorAll('.view').forEach(x=>x.classList.remove('on'));document.getElementById(id).classList.add('on');document.querySelectorAll('.tabs button').forEach(x=>x.classList.remove('on'));btn.classList.add('on');}
+function renderAll(){renderDash();renderBudget();renderDebts();renderCredit();renderIncome();renderSavings();renderCollections();renderGoals();renderHome();renderCRM();renderClose()}
+function renderDash(){
+ const debt=state.debts.reduce((a,x)=>a+(+x.balance||0),0), cash=state.savings.reduce((a,x)=>a+(+x.balance||0),0), income=state.income.reduce((a,x)=>a+(+x.net||0),0);
+ const ch=state.credit.history.at(-1)?.score||0, goal=state.credit.goal||680;
+ $('mCredit').textContent=ch+' → '+goal;$('creditBar').style.width=Math.max(0,Math.min(100,(ch/goal)*100))+'%';$('mDebt').textContent=money(debt);$('mCash').textContent=money(cash);$('mIncome').textContent=money(income);
+ const rows=[['Credit score',ch+' / '+goal],['Debt balance',money(debt)],['Cash reserves',money(cash)],['Monthly income',money(income)],['Debt minimums',money(state.debts.reduce((a,x)=>a+(+x.min||0),0))],['Home target','Nov 1, 2027'],['Contract target','Aug 15, 2027']];
+ $('scoreboard').innerHTML=rows.map(r=>'<tr><td>'+esc(r[0])+'</td><td class="right"><b>'+esc(r[1])+'</b></td></tr>').join('');
+ $('nextActions').innerHTML=['Update the highest-priority debt balance.','Check credit utilization and record current score.','Reconcile savings contributions.','Review collection next-action dates.','Complete monthly close and export backup.'].map(x=>'<div class="item">□ '+x+'</div>').join('');
+ drawChart(debt,cash);
+}
+function drawChart(debt,cash){let s='<line x1="45" y1="145" x2="680" y2="145" stroke="#bbb"/><line x1="45" y1="20" x2="45" y2="145" stroke="#bbb"/>';for(let i=0;i<=10;i++){let x=45+i*63.5;s+='<text x="'+(x-4)+'" y="165" font-size="9" fill="#777">'+i+'</text>'}let max=Math.max(debt,cash+10000,1);let d=[],c=[];for(let i=0;i<=10;i++){let x=45+i*63.5;let dv=debt*(1-i/10);let cv=cash+(state.budget.save||0)*i;d.push(x+','+(145-dv/max*115));c.push(x+','+(145-Math.min(cv,max)/max*115))}s+='<polyline fill="none" stroke="#0b1d33" stroke-width="4" points="'+d.join(' ')+'"/><polyline fill="none" stroke="#237d7b" stroke-width="4" points="'+c.join(' ')+'"/><text x="55" y="25" font-size="11" fill="#0b1d33">Debt</text><text x="100" y="25" font-size="11" fill="#237d7b">Savings</text>';document.getElementById('chart').innerHTML=s}
+function renderBudget(){let b=state.budget,d=state.debts.reduce((a,x)=>a+(+x.min||0),0),living=(+b.rent||0)+(+b.util||0)+(+b.ins||0)+(+b.food||0)+(+b.gas||0)+(+b.misc||0),free=(+b.income||0)-d-living-(+b.save||0);['income','save','rent','util','ins','food','gas','misc'].forEach(k=>$('b'+k[0].toUpperCase()+k.slice(1)).value=b[k]);$('budgetDebt').textContent=money(d);$('budgetLiving').textContent=money(living);$('budgetSavings').textContent=money(b.save);$('budgetFree').textContent=money(free)}
+function saveBudget(){let b={};['Income','Save','Rent','Util','Ins','Food','Gas','Misc'].forEach(k=>b[k.toLowerCase()]=+$('b'+k).value||0);state.budget=b;save()}
+function renderDebts(){let total=state.debts.reduce((a,x)=>a+(+x.balance||0),0),min=state.debts.reduce((a,x)=>a+(+x.min||0),0),original=state.debts.reduce((a,x)=>a+(+x.original||0),0);$('debtTotal').textContent=money(total);$('debtMin').textContent=money(min);$('debtPaid').textContent=money(Math.max(0,original-total));$('method').value=state.strategy;$('debtRows').innerHTML=state.debts.map((x,i)=>'<tr><td><input value="'+esc(x.name)+'" onchange="editDebt('+i+',\'name\',this.value)"></td><td>'+esc(x.type)+'</td><td><input type="number" value="'+x.balance+'" onchange="editDebt('+i+',\'balance\',this.value)"></td><td>'+x.apr+'%</td><td><input type="number" value="'+x.min+'" onchange="editDebt('+i+',\'min\',this.value)"></td><td>'+x.priority+'</td><td>'+esc(x.status)+'</td><td><button class="btn danger" onclick="delDebt('+i+')">×</button></td></tr>').join('')}
+function editDebt(i,k,v){state.debts[i][k]=k==='name'?v:+v;save()}function addDebt(){state.debts.push({id:uid(),name:'New Debt',type:'Credit Card',balance:0,original:0,apr:0,min:0,priority:5,status:'Open'});save()}function delDebt(i){state.debts.splice(i,1);save()}function sortDebts(){state.debts.sort((a,b)=>state.strategy==='Snowball'?(+a.balance||0)-(+b.balance||0):(+b.apr||0)-(+a.apr||0));save()}
+function renderCredit(){let h=state.credit.history,now=h.at(-1)?.score||0; $('cNow').textContent=now;$('cGoal').textContent=state.credit.goal;$('cChange').textContent=(now-(h[0]?.score||now)>=0?'+':'')+(now-(h[0]?.score||now));$('creditRows').innerHTML=h.map((x,i)=>'<tr><td>'+esc(x.date)+'</td><td>'+esc(x.bureau)+'</td><td><b>'+x.score+'</b></td><td>'+esc(x.util)+'</td><td>'+esc(x.reason)+'</td><td><button class="btn danger" onclick="state.credit.history.splice('+i+',1);save()">×</button></td></tr>').join('');$('creditActions').innerHTML=['Keep revolving utilization below 10% when possible.','Never miss a payment; document any dispute or settlement.','Record every score update with bureau, date and reason.','Review collections before applying for VA pre-approval.'].map(x=>'<div class="item">✓ '+x+'</div>').join('')}
+function addCredit(){let score=prompt('Credit score:','');if(score===null)return;let bureau=prompt('Bureau:','TransUnion');let reason=prompt('Reason / event:','Monthly update');state.credit.history.push({id:uid(),date:new Date().toISOString().slice(0,10),bureau,score:+score,util:'',reason});save()}
+function renderIncome(){$('incomeRows').innerHTML=state.income.map((x,i)=>'<tr><td>'+esc(x.person)+'</td><td>'+esc(x.source)+'</td><td>'+money(x.gross)+'</td><td>'+money(x.net)+'</td><td>'+esc(x.frequency)+'</td><td>'+esc(x.start)+'</td><td>'+esc(x.status)+'</td><td><button class="btn danger" onclick="state.income.splice('+i+',1);save()">×</button></td></tr>').join('')}
+function addIncome(){let person=prompt('Person:','Darius');if(person===null)return;let source=prompt('Income source:','Employment');let net=+(prompt('Net monthly:','0')||0);state.income.push({id:uid(),person,source,gross:net,net,frequency:'Monthly',start:'',status:'Active'});save()}
+function renderSavings(){let total=state.savings.reduce((a,x)=>a+(+x.balance||0),0),adds=state.savings.reduce((a,x)=>a+(+x.add||0),0),home=state.savings.filter(x=>/home|va/i.test(x.purpose)).reduce((a,x)=>a+(+x.balance||0),0),em=state.savings.filter(x=>/emergency/i.test(x.purpose)).reduce((a,x)=>a+(+x.balance||0),0);$('cashTotal').textContent=money(total);$('homeFunds').textContent=money(home);$('emergency').textContent=money(em);$('cashAdd').textContent=money(adds);$('saveRows').innerHTML=state.savings.map((x,i)=>'<tr><td>'+esc(x.name)+'</td><td>'+esc(x.purpose)+'</td><td><input type="number" value="'+x.balance+'" onchange="editSave('+i+',\'balance\',this.value)"></td><td>'+money(x.add)+'</td><td>'+money(x.target)+'</td><td><button class="btn danger" onclick="state.savings.splice('+i+',1);save()">×</button></td></tr>').join('')}
+function editSave(i,k,v){state.savings[i][k]=+v;save()}function addSavings(){let name=prompt('Account name:','New Savings');if(name===null)return;let purpose=prompt('Purpose:','General');let bal=+(prompt('Current balance:','0')||0);let target=+(prompt('Target:','0')||0);state.savings.push({id:uid(),name,purpose,balance:bal,add:0,target});save()}
+function renderCollections(){$('collectionRows').innerHTML=state.collections.map((x,i)=>'<tr><td>'+esc(x.creditor)+'</td><td>'+money(x.original)+'</td><td>'+money(x.balance)+'</td><td>'+esc(x.type)+'</td><td>'+esc(x.action)+'</td><td>'+esc(x.next)+'</td><td>'+esc(x.status)+'</td><td><button class="btn danger" onclick="state.collections.splice('+i+',1);save()">×</button></td></tr>').join('')}
+function addCollection(){let creditor=prompt('Creditor / collector:','');if(creditor===null)return;let bal=+(prompt('Current balance:','0')||0);let action=prompt('Next action:','Verify / validate');let next=prompt('Next action date:','');state.collections.push({id:uid(),creditor,original:bal,balance:bal,type:'Collection',action,next,status:'Open'});save()}
+function renderGoals(){$('goalList').innerHTML=state.goals.map((x,i)=>'<div class="item"><div class="sectionhead"><b>'+esc(x.name)+'</b><span class="pill">'+esc(x.status)+'</span></div><div class="small">Target: '+esc(x.target)+' • Current: '+esc(x.current)+' • Due: '+esc(x.due)+'</div><div style="margin-top:7px"><button class="btn ghost" onclick="state.goals[i].status=state.goals[i].status==='Complete'?'In Progress':'Complete';save()">Toggle Complete</button> <button class="btn danger" onclick="state.goals.splice('+i+',1);save()">Delete</button></div></div>').join('')}
+function addGoal(){let name=prompt('Goal:','');if(name===null)return;let target=prompt('Target:','');let due=prompt('Due date:','');state.goals.push({id:uid(),name,target,current:'0',due,status:'Planned'});save()}
+function pmt(rate,n,pv){let r=rate/1200;return r?pv*r*Math.pow(1+r,n)/(Math.pow(1+r,n)-1):pv/n}
+function renderHome(){let h=state.home;['price','rate','tax','ins','hoa','earnest','close','furniture','reserve'].forEach(k=>$('h'+k[0].toUpperCase()+k.slice(1)).value=h[k]);let pi=pmt(h.rate,360,h.price),tax=h.price*h.tax/100/12,housing=pi+tax+h.ins+h.hoa,need=h.earnest+h.close+h.furniture+h.reserve;let income=state.income.reduce((a,x)=>a+(+x.net||0),0),non=state.debts.reduce((a,x)=>a+(+x.min||0),0);$('pi').textContent=money(pi);$('housing').textContent=money(housing);$('cashNeed').textContent=money(need);$('homeDti').textContent=(income?((housing+non)/income*100).toFixed(1):'0')+'%'}
+function saveHome(){let h={};['Price','Rate','Tax','Ins','Hoa','Earnest','Close','Furniture','Reserve'].forEach(k=>h[k.toLowerCase()]=+$('h'+k).value||0);state.home=h;save()}
+function renderCRM(){$('taskList').innerHTML=state.tasks.map((x,i)=>'<div class="item"><b>'+esc(x.name)+'</b><div class="small">'+esc(x.due)+' • '+esc(x.status)+'</div><button class="btn ghost" onclick="state.tasks[i].status=state.tasks[i].status==='Done'?'Open':'Done';save()">Toggle</button></div>').join('');$('notesList').innerHTML=state.notes.slice().reverse().map((x,i)=>'<div class="item"><b>'+esc(x.date)+'</b><div>'+esc(x.text)+'</div></div>').join('')}
+function addTask(){let name=prompt('Task:','');if(name===null)return;let due=prompt('Due:','Monthly');state.tasks.push({id:uid(),name,due,status:'Open'});save()}function addNote(){let t=$('crmNote').value.trim();if(!t)return;state.notes.push({id:uid(),date:new Date().toLocaleString(),text:t});$('crmNote').value='';save()}
+function renderClose(){let keys=['Update debt balances','Record credit scores','Reconcile savings','Review collections','Review budget variance','Export backup'];$('closeList').innerHTML=keys.map(k=>'<div class="item">□ '+k+'</div>').join('')}
+function exportData(){let b=new Blob([JSON.stringify(state,null,2)],{type:'application/json'}),a=document.createElement('a');a.href=URL.createObjectURL(b);a.download='luna-family-crm-backup-'+new Date().toISOString().slice(0,10)+'.json';a.click()}
+function importData(e){let f=e.target.files[0];if(!f)return;let r=new FileReader();r.onload=()=>{try{state=JSON.parse(r.result);save();alert('Luna Family CRM backup imported.')}catch{alert('Invalid CRM backup.')}};r.readAsText(f)}
+function $(id){return document.getElementById(id)}
+renderAll();
+</script>
+</body>
+</html>
