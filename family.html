@@ -282,7 +282,7 @@ if(!validExcelState){
 }
 function save(){localStorage.setItem(KEY,JSON.stringify(state));renderAll()}
 window.show=function(id,btn){const v=document.getElementById(id);if(!v)return;document.querySelectorAll('.view').forEach(x=>x.classList.remove('on'));v.classList.add('on');document.querySelectorAll('.tabs button').forEach(x=>x.classList.remove('on'));if(btn)btn.classList.add('on');}
-window.loadExcelV8=function(){window.LUNA_EXCEL_V9_LOAD&&window.LUNA_EXCEL_V8_LOAD();};
+window.loadExcelV9=function(){if(window.LUNA_EXCEL_V9_LOAD)window.LUNA_EXCEL_V9_LOAD();};
 function renderAll(){renderDash();renderBudget();renderDebts();renderCredit();renderIncome();renderSavings();renderCollections();renderGoals();renderHome();renderCRM();renderClose()}
 function renderDash(){
  const debt=state.debts.reduce((a,x)=>a+(+x.balance||0),0), cash=state.savings.reduce((a,x)=>a+(+x.balance||0),0), income=state.income.reduce((a,x)=>a+(+x.net||0),0);
@@ -337,7 +337,7 @@ try{renderAll()}catch(e){
   }
   document.addEventListener('DOMContentLoaded',function(){
     var lb=document.getElementById('loadExcelBtn');
-    if(lb) lb.addEventListener('click',function(ev){ev.preventDefault(); if(typeof window.LUNA_EXCEL_V8_LOAD==='function') window.LUNA_EXCEL_V8_LOAD();});
+    if(lb) lb.addEventListener('click',function(ev){ev.preventDefault(); if(typeof window.LUNA_EXCEL_V9_LOAD==='function') window.LUNA_EXCEL_V9_LOAD();});
 
     document.querySelectorAll('.tabs button[data-tab]').forEach(function(btn){
       btn.addEventListener('click',function(ev){
@@ -376,13 +376,13 @@ try{renderAll()}catch(e){
       home:DATA.home,close:DATA.close,_excelImportedV9:true,_source:'EXCEL SNAPSHOT — V9 DIRECT LOAD'
     };
   }
-  window.LUNA_EXCEL_V8_LOAD=function(){
+  window.LUNA_EXCEL_V9_LOAD=function(){
     var s=make();
     state=s; normalizeState(); localStorage.setItem(KEY,JSON.stringify(state)); renderAll(); var st=document.getElementById('excelStatus');
     if(st)st.textContent='✓ Excel snapshot loaded: 15 debts, 5 collections, 4 income records, 5 goals.';
     
   };
-  var old=localStorage.getItem('luna-family-crm-v8');
+  var old=localStorage.getItem(KEY);
   if(!old){localStorage.setItem(KEY,JSON.stringify(make()));}
   document.addEventListener('DOMContentLoaded',function(){
     var lb=document.getElementById('loadExcelBtn');
