@@ -1,0 +1,395 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<meta name="theme-color" content="#0b1d33">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-title" content="Luna Family CRM">
+<title>Luna Family CRM V8</title>
+<style>
+:root{--navy:#0b1d33;--cream:#f7f2e7;--gold:#c9a34a;--teal:#237d7b;--ink:#17202a;--muted:#69727d;--line:#d9dde2;--white:#fff;--bad:#a63d40;--good:#287a52}
+*{box-sizing:border-box}body{margin:0;background:#e9ecef;color:var(--ink);font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Arial,sans-serif}.app{max-width:1180px;margin:auto;min-height:100vh;background:var(--cream)}
+header{background:var(--navy);color:#fff;padding:12px 14px;border-bottom:3px solid var(--gold);position:sticky;top:0;z-index:20}.brand{display:flex;align-items:center;gap:12px}.cat{width:72px;height:72px;border-radius:50%;overflow:hidden;background:#fff;border:2px solid var(--gold);display:flex}.cat img{width:100%;height:100%;object-fit:cover}.brand h1{font-size:21px;margin:0;font-weight:900;letter-spacing:1px}.brand p{margin:3px 0 0;color:#d8c27d;font-size:11px;font-weight:800;letter-spacing:1.6px}.tabs{display:flex;gap:7px;overflow:auto;margin-top:12px;padding-bottom:2px}.tabs button{white-space:nowrap;border:1px solid #42536a;background:#132a46;color:#e8edf4;border-radius:20px;padding:10px 13px;font-weight:800}.tabs button.on{background:var(--gold);color:#111;border-color:var(--gold)}
+main{padding:14px}.view{display:none}.view.on{display:block}.grid{display:grid;grid-template-columns:repeat(4,1fr);gap:12px}.grid2{display:grid;grid-template-columns:repeat(2,1fr);gap:12px}.card{background:#fff;border:1px solid var(--line);border-radius:15px;padding:15px;margin-bottom:13px;box-shadow:0 2px 8px #00000008}.title{margin:0 0 10px;font-size:13px;text-transform:uppercase;letter-spacing:1.2px;font-weight:900}.metric{font-size:27px;font-weight:950;color:var(--navy)}.sub{font-size:11px;color:var(--muted);margin-top:3px}.bar{height:10px;background:#e7e9ec;border-radius:99px;overflow:hidden;margin-top:8px}.bar i{display:block;height:100%;background:var(--teal);border-radius:99px}.row{display:flex;gap:8px;flex-wrap:wrap;align-items:center}.row>*{flex:1}.btn{border:0;border-radius:10px;padding:11px 14px;font-weight:850;min-height:42px}.primary{background:var(--navy);color:#fff}.gold{background:var(--gold);color:#111}.teal{background:var(--teal);color:#fff}.ghost{background:#eef0f2}.danger{background:#f4dddd;color:#76292c}.field label{display:block;font-size:11px;color:#59616b;font-weight:850;margin-bottom:4px}.field input,.field select,.field textarea{width:100%;padding:10px;border:1px solid #cdd2d8;border-radius:9px;background:#fff;font:inherit;min-height:42px}.field textarea{min-height:80px}.table{width:100%;border-collapse:collapse;font-size:13px}.table th,.table td{padding:9px 7px;border-bottom:1px solid #e1e4e8;text-align:left;vertical-align:top}.table th{background:#f1f3f5;font-size:11px;text-transform:uppercase;letter-spacing:.6px}.pill{display:inline-block;padding:4px 8px;border-radius:99px;background:#e8f2f1;color:#176461;font-size:10px;font-weight:900}.warn{background:#fff4dc;border-left:4px solid var(--gold);padding:11px;border-radius:8px;font-size:12px}.good{color:var(--good);font-weight:900}.bad{color:var(--bad);font-weight:900}.sectionhead{display:flex;justify-content:space-between;align-items:center;gap:8px;margin-bottom:9px}.sectionhead h2{font-size:17px;margin:0}.list{display:grid;gap:8px}.item{border:1px solid var(--line);border-radius:10px;padding:11px;background:#fff}.small{font-size:11px;color:var(--muted)}.right{text-align:right}.chart{height:180px;width:100%;background:#fafafa;border:1px solid var(--line);border-radius:10px}.foot{text-align:center;padding:18px;color:#737b84;font-size:11px}@media(max-width:820px){.grid{grid-template-columns:repeat(2,1fr)}.grid2{grid-template-columns:1fr}}@media(max-width:520px){main{padding:9px}.grid{grid-template-columns:1fr 1fr}.metric{font-size:23px}.table{font-size:12px}.hideMob{display:none}.cat{width:58px;height:58px}}
+</style>
+</head>
+<body>
+<div class="app">
+<header>
+  <div class="brand">
+    <div class="cat"><img alt="Calico cat logo" src="data:image/svg+xml;charset=UTF-8,%3Csvg%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20viewBox%3D%220%200%20240%20240%22%3E%3Crect%20width%3D%22240%22%20height%3D%22240%22%20rx%3D%2248%22%20fill%3D%22%23f7f2e7%22%2F%3E%3Cpath%20d%3D%22M48%2098V42l52%2034c13-6%2027-6%2040%200l52-34v56c10%2015%2015%2031%2015%2048%200%2048-35%2078-87%2078s-87-30-87-78c0-17%205-33%2015-48Z%22%20fill%3D%22%23fff%22%20stroke%3D%22%230b1d33%22%20stroke-width%3D%228%22%2F%3E%3Cpath%20d%3D%22M55%2089V54l43%2029-17%2035-26-29Z%22%20fill%3D%22%23d78b35%22%2F%3E%3Cpath%20d%3D%22M185%2089V54l-43%2029%2017%2035%2026-29Z%22%20fill%3D%22%23222%22%2F%3E%3Cpath%20d%3D%22M88%2080c-18%209-23%2025-15%2040l28-10%208-27-21-3Z%22%20fill%3D%22%23222%22%2F%3E%3Cpath%20d%3D%22M151%2081c18%208%2023%2024%2015%2039l-27-10-8-27%2020-2Z%22%20fill%3D%22%23d78b35%22%2F%3E%3Cpath%20d%3D%22M104%2099c-7%2011-6%2025%202%2034l14-7%2014%207c8-9%209-23%202-34-8-7-24-7-32%200Z%22%20fill%3D%22%23fff%22%2F%3E%3Cellipse%20cx%3D%2288%22%20cy%3D%22119%22%20rx%3D%2210%22%20ry%3D%2213%22%20fill%3D%22%2374a87a%22%2F%3E%3Cellipse%20cx%3D%22152%22%20cy%3D%22119%22%20rx%3D%2210%22%20ry%3D%2213%22%20fill%3D%22%2374a87a%22%2F%3E%3Ccircle%20cx%3D%2290%22%20cy%3D%22121%22%20r%3D%224%22%20fill%3D%22%230b1d33%22%2F%3E%3Ccircle%20cx%3D%22150%22%20cy%3D%22121%22%20r%3D%224%22%20fill%3D%22%230b1d33%22%2F%3E%3Cpath%20d%3D%22M114%20145q6-6%2012%200l-6%208Z%22%20fill%3D%22%23d97b8c%22%2F%3E%3Cpath%20d%3D%22M120%20153q-8%2010-17%203M120%20153q8%2010%2017%203M88%20145l-30-7M88%20155l-32%202M152%20145l30-7M152%20155l32%202%22%20fill%3D%22none%22%20stroke%3D%22%230b1d33%22%20stroke-width%3D%224%22%20stroke-linecap%3D%22round%22%2F%3E%3Cpath%20d%3D%22M104%2038l-10-22%2025%2013%2025-13-10%2022%22%20fill%3D%22%23c9a34a%22%20stroke%3D%22%230b1d33%22%20stroke-width%3D%226%22%20stroke-linejoin%3D%22round%22%2F%3E%3C%2Fsvg%3E"></div>
+    <div><h1>LUNA FAMILY CRM</h1><span id="buildTag" style="margin-left:8px;font-size:9px;background:#237d7b;color:#fff;padding:4px 7px;border-radius:9px;vertical-align:middle">V11 • EXCEL DATA LOADED</span><p>CREDIT • DEBT • CASH • HOME • GOALS</p><div style="margin-top:5px;font-size:9px;color:#fff;background:#237d7b;display:inline-block;padding:4px 8px;border-radius:10px;font-weight:800">EXCEL DATA: 15 DEBTS • 5 COLLECTIONS • 4 INCOME • 5 GOALS • V11</div></div>
+  </div>
+  <div class="tabs">
+    <button type="button" class="on" data-tab="dash" data-tab="dash">Dashboard</button>
+    <button data-tab="budget" data-tab="budget">Budget</button>
+    <button data-tab="debts" data-tab="debts">Debts</button>
+    <button data-tab="credit" data-tab="credit">Credit</button>
+    <button data-tab="income" data-tab="income">Income</button>
+    <button data-tab="savings" data-tab="savings">Savings</button>
+    <button data-tab="collections" data-tab="collections">Collections</button>
+    <button data-tab="goals" data-tab="goals">Goals</button>
+    <button data-tab="home" data-tab="home">Home Plan</button>
+    <button data-tab="crm" data-tab="crm">CRM</button>
+    <button data-tab="data" data-tab="data">Data</button>
+  </div>
+</header>
+
+<main>
+<div class="card" style="border:2px solid var(--teal);background:#f8fffe">
+ <div class="sectionhead"><div><h2>Excel Import Verification — V11</h2><div class="small">This is the household worksheet snapshot loaded into this browser.</div></div><span class="pill">LIVE DATA</span></div>
+ <div class="grid">
+  <div><b>15</b><div class="small">Debt / obligation records</div></div>
+  <div><b>5</b><div class="small">Collection records</div></div>
+  <div><b>4</b><div class="small">Income records</div></div>
+  <div><b>5</b><div class="small">Goals</div></div>
+ </div>
+ <div class="row" style="margin-top:10px"><button type="button" class="btn teal" id="loadExcelBtn">LOAD EXCEL DATA NOW</button><span id="excelStatus" class="small">✓ Excel snapshot is embedded and visible below. No manual entry required.</span></div>
+</div>
+<section id="dash" class="view on">
+ <div class="card"><div class="sectionhead"><div><h2>2027 Financial Command Center</h2><div class="small">Spreadsheet replacement • Start date: January 1, 2027</div></div><span class="pill">LOCAL-FIRST</span></div>
+ <div class="warn">Primary objective: rebuild credit, eliminate high-cost debt and collections, grow cash reserves, and be mortgage-ready for the November 1, 2027 keys target.</div></div>
+ <div class="grid">
+  <div class="card"><p class="title">Credit</p><div class="metric" id="mCredit">566 → 680</div><div class="sub">Current → goal</div><div class="bar"><i id="creditBar"></i></div></div>
+  <div class="card"><p class="title">Debt</p><div class="metric" id="mDebt">$153,480</div><div class="sub">Tracked balances</div></div>
+  <div class="card"><p class="title">Cash</p><div class="metric" id="mCash">$0</div><div class="sub">Savings + reserves</div></div>
+  <div class="card"><p class="title">Monthly Income</p><div class="metric" id="mIncome">$7,251</div><div class="sub">Household tracked</div></div>
+ </div>
+ <div class="grid2">
+  <div class="card"><p class="title">Debt vs Savings</p><svg id="chart" class="chart" viewBox="0 0 700 180"></svg></div>
+  <div class="card"><p class="title">2027 Scoreboard</p><table class="table"><tbody id="scoreboard"></tbody></table></div>
+ </div>
+ <div class="card"><p class="title">Next Actions</p><div id="nextActions" class="list"></div></div>
+</section>
+
+<section id="budget" class="view">
+ <div class="card"><div class="sectionhead"><h2>Household Budget</h2><button type="button" class="btn gold" onclick="saveBudget()">Save Budget</button></div>
+  <div class="grid2">
+   <div class="field"><label>Monthly household income</label><input id="bIncome" type="number" value="7460.65"></div>
+   <div class="field"><label>Monthly savings target</label><input id="bSave" type="number" value="0"></div>
+   <div class="field"><label>Housing / rent</label><input id="bRent" type="number" value="2200"></div>
+   <div class="field"><label>Utilities / internet / phones</label><input id="bUtil" type="number" value="185.06"></div>
+   <div class="field"><label>Insurance</label><input id="bIns" type="number" value="406.43"></div>
+   <div class="field"><label>Food</label><input id="bFood" type="number" value="516.10"></div>
+   <div class="field"><label>Gas / transportation</label><input id="bGas" type="number" value="350"></div>
+   <div class="field"><label>Subscriptions / misc.</label><input id="bMisc" type="number" value="903.24"></div>
+  </div>
+ </div>
+ <div class="grid">
+  <div class="card"><p class="title">Debt payments</p><div class="metric" id="budgetDebt">$5,384</div></div>
+  <div class="card"><p class="title">Living costs</p><div class="metric" id="budgetLiving">$4,561</div></div>
+  <div class="card"><p class="title">Savings</p><div class="metric" id="budgetSavings">$0</div></div>
+  <div class="card"><p class="title">Unallocated</p><div class="metric" id="budgetFree">$0</div></div>
+ </div>
+</section>
+
+<section id="debts" class="view">
+ <div class="card"><div class="sectionhead"><h2>Debt Payoff CRM</h2><div class="row"><button type="button" class="btn gold" onclick="addDebt()">＋ Debt</button><button type="button" class="btn primary" onclick="sortDebts()">Sort Strategy</button></div></div>
+ <div class="small">Track original balance, current balance, APR, minimum, due date, status, payoff priority and notes. Strategy can be Avalanche or Snowball.</div>
+ <div style="overflow:auto"><table class="table"><thead><tr><th>Account</th><th>Type</th><th>Balance</th><th>APR</th><th>Min</th><th>Priority</th><th>Status</th><th></th></tr></thead><tbody id="debtRows"><tr><td>CarMax - Benzo</td><td>Auto</td><td>$33,463.40</td><td>0%</td><td>$500.00</td><td>1</td><td>Open</td><td></td></tr><tr><td>Care Credit - Synchrony</td><td>Credit Card</td><td>$795.46</td><td>0%</td><td>$65.00</td><td>2</td><td>Open</td><td></td></tr><tr><td>Comenity - Kay Jew</td><td>Credit Card</td><td>$5,539.36</td><td>0%</td><td>$192.00</td><td>3</td><td>Open</td><td></td></tr><tr><td>Capital One - CC</td><td>Credit Card</td><td>$860.92</td><td>0%</td><td>$81.00</td><td>4</td><td>Open</td><td></td></tr><tr><td>Wells Fargo - Ashley</td><td>Credit Card</td><td>$3,366.41</td><td>0%</td><td>$164.62</td><td>5</td><td>Open</td><td></td></tr><tr><td>Military Star - A</td><td>Credit Card</td><td>$6,015.67</td><td>0%</td><td>$160.00</td><td>6</td><td>Open</td><td></td></tr><tr><td>Credit9 - A</td><td>Settlement</td><td>$17,642.56</td><td>0%</td><td>$836.60</td><td>7</td><td>Open</td><td></td></tr><tr><td>USAA Amex</td><td>Credit Card</td><td>$13,981.65</td><td>0%</td><td>$320.00</td><td>8</td><td>Open</td><td></td></tr><tr><td>Exeter - Ram</td><td>Auto</td><td>$22,636.94</td><td>0%</td><td>$473.93</td><td>9</td><td>Open</td><td></td></tr><tr><td>Tesla - AUTO</td><td>Auto</td><td>$11,224.68</td><td>0%</td><td>$350.00</td><td>10</td><td>Open</td><td></td></tr><tr><td>IRS - 2021</td><td>Tax</td><td>$11,659.48</td><td>0%</td><td>$0.00</td><td>11</td><td>Open</td><td></td></tr><tr><td>IRS - 2024</td><td>Tax</td><td>$16,325.54</td><td>0%</td><td>$0.00</td><td>12</td><td>Open</td><td></td></tr><tr><td>IRS - 2025</td><td>Tax</td><td>$9,526.00</td><td>0%</td><td>$0.00</td><td>13</td><td>Open</td><td></td></tr><tr><td>UNM ER</td><td>Medical</td><td>$441.60</td><td>0%</td><td>$0.00</td><td>14</td><td>Open</td><td></td></tr><tr><td>Alimony / DFAS</td><td>Obligation</td><td>$0.00</td><td>0%</td><td>$2,241.00</td><td>15</td><td>Recurring</td><td></td></tr></tbody></table></div></div>
+ <div class="grid"><div class="card"><p class="title">Total Debt</p><div class="metric" id="debtTotal">$153,480</div></div><div class="card"><p class="title">Monthly Minimums</p><div class="metric" id="debtMin">$5,384</div></div><div class="card"><p class="title">Paid Down</p><div class="metric" id="debtPaid">$0</div></div><div class="card"><p class="title">Target Method</p><select id="method" onchange="state.strategy=this.value;save()"><option>Avalanche</option><option>Snowball</option></select></div></div>
+</section>
+
+<section id="credit" class="view">
+ <div class="card"><div class="sectionhead"><h2>Credit Rebuild</h2><button type="button" class="btn gold" onclick="addCredit()">＋ Score Entry</button></div>
+ <div class="grid"><div class="card"><p class="title">Current Score</p><div class="metric" id="cNow">566</div></div><div class="card"><p class="title">Goal</p><div class="metric" id="cGoal">680</div></div><div class="card"><p class="title">Change</p><div class="metric" id="cChange">+0</div></div><div class="card"><p class="title">Utilization Target</p><div class="metric">&lt;10%</div></div></div>
+ <div style="overflow:auto"><table class="table"><thead><tr><th>Date</th><th>Bureau</th><th>Score</th><th>Utilization</th><th>Event / Reason</th><th></th></tr></thead><tbody id="creditRows"></tbody></table></div></div>
+ <div class="card"><p class="title">Credit Action Queue</p><div class="list" id="creditActions"></div></div>
+</section>
+
+<section id="income" class="view">
+ <div class="card"><div class="sectionhead"><h2>Income CRM</h2><button type="button" class="btn gold" onclick="addIncome()">＋ Income</button></div>
+ <div style="overflow:auto"><table class="table"><thead><tr><th>Person</th><th>Source</th><th>Gross / Month</th><th>Net / Month</th><th>Frequency</th><th>Start</th><th>Status</th><th></th></tr></thead><tbody id="incomeRows"><tr><td>Darius</td><td>Retirement</td><td>$2,709.84</td><td>$2,709.84</td><td>Monthly/Other</td><td></td><td>Active/Recorded</td><td></td></tr><tr><td>Darius</td><td>VA Disability</td><td>$4,176.04</td><td>$4,176.04</td><td>Monthly/Other</td><td></td><td>Active/Recorded</td><td></td></tr><tr><td>Household</td><td>Additional Deposits</td><td>$343.18</td><td>$343.18</td><td>Monthly/Other</td><td></td><td>Active/Recorded</td><td></td></tr><tr><td>Household</td><td>Additional Deposits</td><td>$21.65</td><td>$21.65</td><td>Monthly/Other</td><td></td><td>Active/Recorded</td><td></td></tr></tbody></table></div></div>
+</section>
+
+<section id="savings" class="view">
+ <div class="card"><div class="sectionhead"><h2>Savings & Cash Reserves</h2><button type="button" class="btn gold" onclick="addSavings()">＋ Account</button></div>
+ <div style="overflow:auto"><table class="table"><thead><tr><th>Account</th><th>Purpose</th><th>Balance</th><th>Monthly Add</th><th>Target</th><th></th></tr></thead><tbody id="saveRows"></tbody></table></div></div>
+ <div class="grid"><div class="card"><p class="title">Cash Total</p><div class="metric" id="cashTotal">$0</div></div><div class="card"><p class="title">Home Purchase Funds</p><div class="metric" id="homeFunds">$0</div></div><div class="card"><p class="title">Emergency Reserve</p><div class="metric" id="emergency">$0</div></div><div class="card"><p class="title">Monthly Contributions</p><div class="metric" id="cashAdd">$0</div></div></div>
+</section>
+
+<section id="collections" class="view">
+ <div class="card"><div class="sectionhead"><h2>Collections / Negative Accounts</h2><button type="button" class="btn gold" onclick="addCollection()">＋ Collection</button></div>
+ <div style="overflow:auto"><table class="table"><thead><tr><th>Creditor / Collector</th><th>Original</th><th>Balance</th><th>Type</th><th>Action</th><th>Next Date</th><th>Status</th><th></th></tr></thead><tbody id="collectionRows"><tr><td>Kay Jewel</td><td>$1,430.15</td><td>$1,430.15</td><td>Collection</td><td>Paid / disputed</td><td></td><td>Paid</td><td></td></tr><tr><td>ER</td><td>$1,792.00</td><td>$1,792.00</td><td>Collection</td><td>Call VA and verify payment</td><td></td><td>Open</td><td></td></tr><tr><td>Attorney</td><td>$5,869.96</td><td>$5,869.96</td><td>Collection</td><td>Call / setup payment plan</td><td></td><td>Open</td><td></td></tr><tr><td>Jax Apt</td><td>$3,002.11</td><td>$3,002.11</td><td>Collection</td><td>Disputed - no response</td><td></td><td>Disputed</td><td></td></tr><tr><td>PrimePest</td><td>$460.05</td><td>$460.05</td><td>Collection</td><td>Disputed</td><td></td><td>Disputed</td><td></td></tr></tbody></table></div></div>
+ <div class="card"><p class="title">Collection Workflow</p><div class="list"><div class="item"><b>1. Verify</b><div class="small">Confirm debt, ownership, balance, dates and reporting.</div></div><div class="item"><b>2. Document</b><div class="small">Store letters, statements, settlement offers and responses.</div></div><div class="item"><b>3. Act</b><div class="small">Track dispute, validation, settlement or payment plan.</div></div><div class="item"><b>4. Confirm</b><div class="small">Record outcome and credit-report impact.</div></div></div></div>
+</section>
+
+<section id="goals" class="view">
+ <div class="card"><div class="sectionhead"><h2>Goals & Milestones</h2><button type="button" class="btn gold" onclick="addGoal()">＋ Goal</button></div>
+ <div id="goalList" class="list"><div class="item"><div class="sectionhead"><b>Credit score</b><span class="pill">In Progress</span></div><div class="small">Target: 680+ • Current: 566 • Due: 2027-06-01</div></div><div class="item"><div class="sectionhead"><b>Emergency reserve</b><span class="pill">In Progress</span></div><div class="small">Target: $15,000 • Current: $0 • Due: 2027-08-01</div></div><div class="item"><div class="sectionhead"><b>VA pre-approval</b><span class="pill">Planned</span></div><div class="small">Target: June 2027 • Current: Not started • Due: 2027-06-15</div></div><div class="item"><div class="sectionhead"><b>Contract</b><span class="pill">Planned</span></div><div class="small">Target: Aug 15, 2027 • Current: Not started • Due: 2027-08-15</div></div><div class="item"><div class="sectionhead"><b>Keys in hand</b><span class="pill">Planned</span></div><div class="small">Target: Nov 1, 2027 • Current: Not started • Due: 2027-11-01</div></div></div></div>
+</section>
+
+<section id="home" class="view">
+ <div class="card"><div class="sectionhead"><h2>VA Home Purchase Plan</h2><span class="pill">KEYS: NOV 1, 2027</span></div>
+ <div class="grid2">
+  <div class="field"><label>Target home price</label><input id="hPrice" type="number" onchange="saveHome()"></div>
+  <div class="field"><label>Planning rate %</label><input id="hRate" type="number" step=".01" onchange="saveHome()"></div>
+  <div class="field"><label>Property tax %</label><input id="hTax" type="number" step=".01" onchange="saveHome()"></div>
+  <div class="field"><label>Insurance / month</label><input id="hIns" type="number" onchange="saveHome()"></div>
+  <div class="field"><label>HOA / month</label><input id="hHoa" type="number" onchange="saveHome()"></div>
+  <div class="field"><label>Earnest / good-faith money</label><input id="hEarnest" type="number" onchange="saveHome()"></div>
+  <div class="field"><label>Closing + prepaids</label><input id="hClose" type="number" onchange="saveHome()"></div>
+  <div class="field"><label>Furniture / startup</label><input id="hFurniture" type="number" onchange="saveHome()"></div>
+  <div class="field"><label>Emergency reserve</label><input id="hReserve" type="number" onchange="saveHome()"></div>
+ </div></div>
+ <div class="grid"><div class="card"><p class="title">Estimated P&I</p><div class="metric" id="pi">—</div></div><div class="card"><p class="title">Full Housing</p><div class="metric" id="housing">—</div></div><div class="card"><p class="title">Purchase Cash Needed</p><div class="metric" id="cashNeed">—</div></div><div class="card"><p class="title">DTI</p><div class="metric" id="homeDti">—</div></div></div>
+ <div class="card"><p class="title">2027 Timeline</p><div class="list"><div class="item"><b>Jan–Mar</b> — credit + cash sprint</div><div class="item"><b>Apr–May</b> — lender preparation</div><div class="item"><b>June</b> — VA pre-approval target</div><div class="item"><b>Jun–Jul</b> — begin house shopping</div><div class="item"><b>Aug 15</b> — contract target</div><div class="item"><b>Aug–Oct</b> — contract to close</div><div class="item"><b>Nov 1</b> — keys in hand</div></div></div>
+</section>
+
+<section id="crm" class="view">
+ <div class="card"><div class="sectionhead"><h2>Family CRM</h2><button type="button" class="btn gold" onclick="addTask()">＋ Task</button></div>
+ <div class="grid2">
+  <div><p class="title">People</p><div class="list"><div class="item"><b>Darius</b><div class="small">Primary financial owner</div></div><div class="item"><b>Lennie</b><div class="small">Household member • income optional while in nursing school</div></div></div></div>
+  <div><p class="title">Recurring Financial Tasks</p><div id="taskList" class="list"></div></div>
+ </div></div>
+ <div class="card"><p class="title">Notes / Records</p><textarea id="crmNote" placeholder="Add a family financial note, lender note, creditor call, promise date, or decision..."></textarea><div class="row" style="margin-top:8px"><button type="button" class="btn primary" onclick="addNote()">Save Note</button></div><div id="notesList" class="list" style="margin-top:9px"></div></div>
+</section>
+
+<section id="data" class="view">
+ <div class="card"><h2>Data & Monthly Close</h2><p class="small">This replaces the spreadsheet workflow. Everything is stored on this device until you export a backup.</p>
+ <div class="row"><button type="button" class="btn gold" onclick="exportData()">Export Full CRM Backup</button><button type="button" class="btn ghost" onclick="document.getElementById('importFile').click()">Import Backup</button><button type="button" class="btn primary" onclick="window.print()">Print / Save PDF</button><input id="importFile" type="file" accept=".json" hidden onchange="importData(event)"></div></div>
+ <div class="card"><p class="title">Monthly Close Checklist</p><div id="closeList" class="list"></div></div>
+ <div class="card"><p class="title">System Rules</p><div class="list"><div class="item">Update balances after statements post.</div><div class="item">Record every collection action and promised date.</div><div class="item">Enter every credit score change with a reason.</div><div class="item">Reconcile income and savings monthly.</div><div class="item">Export a backup at each monthly close.</div></div></div>
+</section>
+</main>
+<div style="margin:0 14px 10px;padding:9px 12px;background:#fff4dc;border-left:4px solid var(--gold);border-radius:8px;font-size:11px"><b>Data loaded from Excel snapshot.</b> This browser copy starts with the imported household worksheet; edits are saved locally on this device.</div><div class="foot">Luna Family CRM • Financial planning tool • Not lender or credit-bureau approval.</div>
+</div>
+
+<script>
+const KEY='luna-family-crm-v11-editable';
+const logoData='data:image/webp;base64,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';
+const money=n=>'$'+(Number(n)||0).toLocaleString(undefined,{minimumFractionDigits:0,maximumFractionDigits:0});
+const uid=()=>Date.now().toString(36)+Math.random().toString(36).slice(2,6);
+const esc=s=>String(s??'').replace(/[&<>"]/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[c]));
+let state=JSON.parse(localStorage.getItem(KEY)||'null')||{
+ strategy:'Avalanche',
+ budget:{income:9451,save:1000,rent:2200,util:524,ins:348,food:500,gas:200,misc:1550},
+ debts:[
+  {id:uid(),name:'Military Star',type:'Credit Card',balance:6543.41,original:6543.41,apr:0,min:160,priority:2,status:'Open'},
+  {id:uid(),name:'USAA AMEX',type:'Credit Card',balance:13752.15,original:13752.15,apr:0,min:340,priority:1,status:'Open'},
+  {id:uid(),name:'Credit9 / Americor',type:'Settlement',balance:9816,original:9816,apr:0,min:1340.40,priority:1,status:'Settlement'},
+  {id:uid(),name:'2019 Ram 1500',type:'Auto',balance:23206.94,original:23206.94,apr:0,min:473.93,priority:3,status:'Open'},
+  {id:uid(),name:'Alimony / DFAS',type:'Obligation',balance:0,original:0,apr:0,min:1842,priority:4,status:'Recurring'}
+ ],
+ credit:{goal:680,history:[{id:uid(),date:'2026-10-01',bureau:'TransUnion',score:566,util:'',reason:'Starting baseline'}]},
+ income:[
+  {id:uid(),person:'Darius',source:'VA Disability',gross:4298.04,net:4298.04,frequency:'Monthly',start:'',status:'Active'},
+  {id:uid(),person:'Darius',source:'Navy Retirement',gross:2852.51,net:2852.51,frequency:'Monthly',start:'',status:'Active'},
+  {id:uid(),person:'Lennie',source:'Household / Other',gross:2700,net:2700,frequency:'Monthly',start:'',status:'Active'}
+ ],
+ savings:[
+  {id:uid(),name:'Primary Savings',purpose:'Emergency / General',balance:0,add:1000,target:15000},
+  {id:uid(),name:'Home Purchase Fund',purpose:'VA Home',balance:0,add:0,target:25000}
+ ],
+ collections:[],
+ goals:[
+  {id:uid(),name:'Credit score',target:'680+',current:'566',due:'2027-06-01',status:'In Progress'},
+  {id:uid(),name:'Emergency reserve',target:'$15,000',current:'$0',due:'2027-08-01',status:'In Progress'},
+  {id:uid(),name:'VA pre-approval',target:'June 2027',current:'Not started',due:'2027-06-15',status:'Planned'},
+  {id:uid(),name:'Contract',target:'Aug 15, 2027',current:'Not started',due:'2027-08-15',status:'Planned'},
+  {id:uid(),name:'Keys in hand',target:'Nov 1, 2027',current:'Not started',due:'2027-11-01',status:'Planned'}
+ ],
+ tasks:[
+  {id:uid(),name:'Update all debt balances',due:'Monthly',status:'Open'},
+  {id:uid(),name:'Record credit scores',due:'Monthly',status:'Open'},
+  {id:uid(),name:'Reconcile savings',due:'Monthly',status:'Open'},
+  {id:uid(),name:'Export CRM backup',due:'Month-end',status:'Open'}
+ ],
+ notes:[],
+ home:{price:350000,rate:7.24,tax:2,ins:180,hoa:0,earnest:5000,close:9000,furniture:5000,reserve:15000},
+ close:{}
+};
+const EXCEL_SNAPSHOT={
+  source:'Household financial worksheet imported from user-provided Excel data; source date not specified',
+  strategy:'Snowball',
+  budget:{income:7460.65,save:0,rent:2200,util:185.06,ins:406.43,food:516.10,gas:350,misc:903.24},
+  debts:[
+    {id:uid(),name:'CarMax - Benzo',type:'Auto',balance:33463.40,original:33463.40,apr:0,min:500,priority:1,status:'Open'},
+    {id:uid(),name:'Care Credit - Synchrony',type:'Credit Card',balance:795.46,original:795.46,apr:0,min:65,priority:2,status:'Open'},
+    {id:uid(),name:'Comenity - Kay Jew',type:'Credit Card',balance:5539.36,original:5539.36,apr:0,min:192,priority:3,status:'Open'},
+    {id:uid(),name:'Capital One - CC',type:'Credit Card',balance:860.92,original:860.92,apr:0,min:81,priority:4,status:'Open'},
+    {id:uid(),name:'Wells Fargo - Ashley',type:'Credit Card',balance:3366.41,original:3366.41,apr:0,min:164.62,priority:5,status:'Open'},
+    {id:uid(),name:'Military Star - A',type:'Credit Card',balance:6015.67,original:6015.67,apr:0,min:160,priority:6,status:'Open'},
+    {id:uid(),name:'Credit9 - A',type:'Settlement',balance:17642.56,original:17642.56,apr:0,min:836.60,priority:7,status:'Open'},
+    {id:uid(),name:'USAA Amex',type:'Credit Card',balance:13981.65,original:13981.65,apr:0,min:320,priority:8,status:'Open'},
+    {id:uid(),name:'Exeter - Ram',type:'Auto',balance:22636.94,original:22636.94,apr:0,min:473.93,priority:9,status:'Open'},
+    {id:uid(),name:'Tesla - AUTO',type:'Auto',balance:11224.68,original:11224.68,apr:0,min:350,priority:10,status:'Open'},
+    {id:uid(),name:'IRS - 2021',type:'Tax',balance:11659.48,original:11659.48,apr:0,min:0,priority:11,status:'Open'},
+    {id:uid(),name:'IRS - 2024',type:'Tax',balance:16325.54,original:16325.54,apr:0,min:0,priority:12,status:'Open'},
+    {id:uid(),name:'IRS - 2025',type:'Tax',balance:9526,original:9526,apr:0,min:0,priority:13,status:'Open'},
+    {id:uid(),name:'UNM ER',type:'Medical',balance:441.60,original:441.60,apr:0,min:0,priority:14,status:'Open'},
+    {id:uid(),name:'Alimony / DFAS',type:'Obligation',balance:0,original:0,apr:0,min:2241,priority:15,status:'Recurring'}
+  ],
+  credit:{goal:680,history:[{id:uid(),date:'2026-10-01',bureau:'TransUnion',score:566,util:'',reason:'Excel baseline'}]},
+  income:[
+    {id:uid(),person:'Darius',source:'Retirement',gross:2709.84,net:2709.84,frequency:'Monthly',start:'',status:'Active'},
+    {id:uid(),person:'Darius',source:'VA Disability',gross:4176.04,net:4176.04,frequency:'Monthly',start:'',status:'Active'},
+    {id:uid(),person:'Household',source:'Additional Deposits',gross:343.18,net:343.18,frequency:'Other',start:'',status:'Recorded'},
+    {id:uid(),person:'Household',source:'Additional Deposits',gross:21.65,net:21.65,frequency:'Other',start:'',status:'Recorded'}
+  ],
+  savings:[{id:uid(),name:'Savings',purpose:'Savings',balance:0,add:0,target:15000}],
+  collections:[
+    {id:uid(),creditor:'Kay Jewel',original:1430.15,balance:1430.15,type:'Collection',action:'Paid / disputed',next:'',status:'Paid'},
+    {id:uid(),creditor:'ER',original:1792,balance:1792,type:'Collection',action:'Call VA and verify payment',next:'',status:'Open'},
+    {id:uid(),creditor:'Attorney',original:5869.96,balance:5869.96,type:'Collection',action:'Call / setup payment plan',next:'',status:'Open'},
+    {id:uid(),creditor:'Jax Apt',original:3002.11,balance:3002.11,type:'Collection',action:'Disputed - no response',next:'',status:'Disputed'},
+    {id:uid(),creditor:'PrimePest',original:460.05,balance:460.05,type:'Collection',action:'Disputed',next:'',status:'Disputed'}
+  ],
+  goals:[
+    {id:uid(),name:'Credit score',target:'680+',current:'566',due:'2027-06-01',status:'In Progress'},
+    {id:uid(),name:'Emergency reserve',target:'$15,000',current:'$0',due:'2027-08-01',status:'In Progress'},
+    {id:uid(),name:'VA pre-approval',target:'June 2027',current:'Not started',due:'2027-06-15',status:'Planned'},
+    {id:uid(),name:'Contract',target:'Aug 15, 2027',current:'Not started',due:'2027-08-15',status:'Planned'},
+    {id:uid(),name:'Keys in hand',target:'Nov 1, 2027',current:'Not started',due:'2027-11-01',status:'Planned'}
+  ],
+  tasks:[
+    {id:uid(),name:'Update debt balances',due:'Monthly',status:'Open'},
+    {id:uid(),name:'Record credit scores',due:'Monthly',status:'Open'},
+    {id:uid(),name:'Reconcile savings',due:'Monthly',status:'Open'},
+    {id:uid(),name:'Export CRM backup',due:'Month-end',status:'Open'}
+  ],
+  notes:[{id:uid(),date:'Excel import',text:'Imported from the household financial worksheet. Source shows total monthly debt of $7,442.07 and collection balance of $11,124.12. Source date was not specified.'}],
+  home:{price:350000,rate:7.24,tax:2,ins:180,hoa:0,earnest:5000,close:9000,furniture:5000,reserve:15000},
+  close:{}
+};
+function normalizeState(){
+  state=state||{};
+  state.strategy=state.strategy||'Avalanche';
+  state.budget=Object.assign({income:0,save:0,rent:0,util:0,ins:0,food:0,gas:0,misc:0},state.budget||{});
+  state.debts=Array.isArray(state.debts)?state.debts:[];
+  state.credit=state.credit||{goal:680,history:[]};
+  state.credit.goal=Number(state.credit.goal)||680;
+  state.credit.history=Array.isArray(state.credit.history)?state.credit.history:[];
+  state.income=Array.isArray(state.income)?state.income:[];
+  state.savings=Array.isArray(state.savings)?state.savings:[];
+  state.collections=Array.isArray(state.collections)?state.collections:[];
+  state.goals=Array.isArray(state.goals)?state.goals:[];
+  state.tasks=Array.isArray(state.tasks)?state.tasks:[];
+  state.notes=Array.isArray(state.notes)?state.notes:[];
+  state.home=Object.assign({price:350000,rate:7.24,tax:2,ins:180,hoa:0,earnest:5000,close:9000,furniture:5000,reserve:15000},state.home||{});
+  state.close=state.close||{};
+  return state;
+}
+normalizeState();
+const validExcelState=state._excelImportedV11===true && state.debts.length===15 && state.collections.length===5 && state.income.length===4 && state.goals.length===5 && state.debts.some(x=>x.name==='CarMax - Benzo');
+if(!validExcelState){
+  state=JSON.parse(JSON.stringify(EXCEL_SNAPSHOT));
+  state._excelImportedV11=true;
+  state._source='EXCEL SNAPSHOT — V11 VERIFIED LOAD';
+  normalizeState();
+  localStorage.setItem(KEY,JSON.stringify(state));
+}
+function save(){localStorage.setItem(KEY,JSON.stringify(state));renderAll()}
+window.show=function(id,btn){const v=document.getElementById(id);if(!v)return;document.querySelectorAll('.view').forEach(x=>x.classList.remove('on'));v.classList.add('on');document.querySelectorAll('.tabs button').forEach(x=>x.classList.remove('on'));if(btn)btn.classList.add('on');}
+window.loadExcelV11=function(){if(typeof window.LUNA_EXCEL_V11_LOAD==='function')window.LUNA_EXCEL_V11_LOAD();};
+function renderAll(){
+ [renderDash,renderBudget,renderDebts,renderCredit,renderIncome,renderSavings,renderCollections,renderGoals,renderHome,renderCRM,renderClose].forEach(function(fn){try{fn()}catch(e){console.error("CRM section error:",e)}})
+}
+function renderDash(){
+ const debt=state.debts.reduce((a,x)=>a+(+x.balance||0),0), cash=state.savings.reduce((a,x)=>a+(+x.balance||0),0), income=state.income.reduce((a,x)=>a+(+x.net||0),0);
+ const h=state.credit.history||[]; const ch=(h.length?h[h.length-1].score:0)||0, goal=state.credit.goal||680;
+ $('mCredit').textContent=ch+' → '+goal;$('creditBar').style.width=Math.max(0,Math.min(100,(ch/goal)*100))+'%';$('mDebt').textContent=money(debt);$('mCash').textContent=money(cash);$('mIncome').textContent=money(income);
+ const rows=[['Credit score',ch+' / '+goal],['Debt balance',money(debt)],['Cash reserves',money(cash)],['Monthly income',money(income)],['Debt minimums',money(state.debts.reduce((a,x)=>a+(+x.min||0),0))],['Home target','Nov 1, 2027'],['Contract target','Aug 15, 2027']];
+ $('scoreboard').innerHTML=rows.map(r=>'<tr><td>'+esc(r[0])+'</td><td class="right"><b>'+esc(r[1])+'</b></td></tr>').join('');
+ $('nextActions').innerHTML=['Update the highest-priority debt balance.','Check credit utilization and record current score.','Reconcile savings contributions.','Review collection next-action dates.','Complete monthly close and export backup.'].map(x=>'<div class="item">□ '+x+'</div>').join('');
+ drawChart(debt,cash);
+}
+function drawChart(debt,cash){let s='<line x1="45" y1="145" x2="680" y2="145" stroke="#bbb"/><line x1="45" y1="20" x2="45" y2="145" stroke="#bbb"/>';for(let i=0;i<=10;i++){let x=45+i*63.5;s+='<text x="'+(x-4)+'" y="165" font-size="9" fill="#777">'+i+'</text>'}let max=Math.max(debt,cash+10000,1);let d=[],c=[];for(let i=0;i<=10;i++){let x=45+i*63.5;let dv=debt*(1-i/10);let cv=cash+(state.budget.save||0)*i;d.push(x+','+(145-dv/max*115));c.push(x+','+(145-Math.min(cv,max)/max*115))}s+='<polyline fill="none" stroke="#0b1d33" stroke-width="4" points="'+d.join(' ')+'"/><polyline fill="none" stroke="#237d7b" stroke-width="4" points="'+c.join(' ')+'"/><text x="55" y="25" font-size="11" fill="#0b1d33">Debt</text><text x="100" y="25" font-size="11" fill="#237d7b">Savings</text>';document.getElementById('chart').innerHTML=s}
+function renderBudget(){let b=state.budget,d=state.debts.reduce((a,x)=>a+(+x.min||0),0),living=(+b.rent||0)+(+b.util||0)+(+b.ins||0)+(+b.food||0)+(+b.gas||0)+(+b.misc||0),free=(+b.income||0)-d-living-(+b.save||0);['income','save','rent','util','ins','food','gas','misc'].forEach(k=>$('b'+k[0].toUpperCase()+k.slice(1)).value=b[k]);$('budgetDebt').textContent=money(d);$('budgetLiving').textContent=money(living);$('budgetSavings').textContent=money(b.save);$('budgetFree').textContent=money(free)}
+function saveBudget(){let b={};['Income','Save','Rent','Util','Ins','Food','Gas','Misc'].forEach(k=>b[k.toLowerCase()]=+$('b'+k).value||0);state.budget=b;save()}
+function renderDebts(){let total=state.debts.reduce((a,x)=>a+(+x.balance||0),0),min=state.debts.reduce((a,x)=>a+(+x.min||0),0),original=state.debts.reduce((a,x)=>a+(+x.original||0),0);$('debtTotal').textContent=money(total);$('debtMin').textContent=money(min);$('debtPaid').textContent=money(Math.max(0,original-total));$('method').value=state.strategy;$('debtRows').innerHTML=state.debts.map((x,i)=>'<tr><td><input value="'+esc(x.name)+'" onchange="editDebt('+i+',\'name\',this.value)"></td><td><input value="'+esc(x.type)+'" onchange="editDebt('+i+',\'type\',this.value)"></td><td><input type="number" step="0.01" value="'+x.balance+'" onchange="editDebt('+i+',\'balance\',this.value)"></td><td><input type="number" step="0.01" value="'+x.apr+'" onchange="editDebt('+i+',\'apr\',this.value)"></td><td><input type="number" step="0.01" value="'+x.min+'" onchange="editDebt('+i+',\'min\',this.value)"></td><td><input type="number" value="'+x.priority+'" onchange="editDebt('+i+',\'priority\',this.value)"></td><td><input value="'+esc(x.status)+'" onchange="editDebt('+i+',\'status\',this.value)"></td><td><button type="button" class="btn danger" onclick="delDebt('+i+')">×</button></td></tr>').join('')}
+function editDebt(i,k,v){state.debts[i][k]=(k==='name'||k==='type'||k==='status')?v:(+v||0);save()}function addDebt(){state.debts.push({id:uid(),name:'New Debt',type:'Credit Card',balance:0,original:0,apr:0,min:0,priority:5,status:'Open'});save()}function delDebt(i){state.debts.splice(i,1);save()}function sortDebts(){state.debts.sort((a,b)=>state.strategy==='Snowball'?(+a.balance||0)-(+b.balance||0):(+b.apr||0)-(+a.apr||0));save()}
+function renderCredit(){let h=state.credit.history||[],now=(h.length?h[h.length-1].score:0)||0; $('cNow').textContent=now;$('cGoal').textContent=state.credit.goal;$('cChange').textContent=(now-((h.length?h[0].score:now)||now)>=0?'+':'')+(now-(h[0]?.score||now));$('creditRows').innerHTML=h.map((x,i)=>'<tr><td>'+esc(x.date)+'</td><td>'+esc(x.bureau)+'</td><td><b>'+x.score+'</b></td><td>'+esc(x.util)+'</td><td>'+esc(x.reason)+'</td><td><button type="button" class="btn danger" onclick="state.credit.history.splice('+i+',1);save()">×</button></td></tr>').join('');$('creditActions').innerHTML=['Keep revolving utilization below 10% when possible.','Never miss a payment; document any dispute or settlement.','Record every score update with bureau, date and reason.','Review collections before applying for VA pre-approval.'].map(x=>'<div class="item">✓ '+x+'</div>').join('')}
+function addCredit(){let score=prompt('Credit score:','');if(score===null)return;let bureau=prompt('Bureau:','TransUnion');let reason=prompt('Reason / event:','Monthly update');state.credit.history.push({id:uid(),date:new Date().toISOString().slice(0,10),bureau,score:+score,util:'',reason});save()}
+function renderIncome(){$('incomeRows').innerHTML=state.income.map((x,i)=>'<tr><td><input value="'+esc(x.person)+'" onchange="editIncome('+i+',\'person\',this.value)"></td><td><input value="'+esc(x.source)+'" onchange="editIncome('+i+',\'source\',this.value)"></td><td><input type="number" step="0.01" value="'+x.gross+'" onchange="editIncome('+i+',\'gross\',this.value)"></td><td><input type="number" step="0.01" value="'+x.net+'" onchange="editIncome('+i+',\'net\',this.value)"></td><td><input value="'+esc(x.frequency)+'" onchange="editIncome('+i+',\'frequency\',this.value)"></td><td><input type="date" value="'+esc(x.start||'')+'" onchange="editIncome('+i+',\'start\',this.value)"></td><td><input value="'+esc(x.status)+'" onchange="editIncome('+i+',\'status\',this.value)"></td><td><button type="button" class="btn danger" onclick="delIncome('+i+')">×</button></td></tr>').join('')}
+function editIncome(i,k,v){state.income[i][k]=(k==='gross'||k==='net')?(+v||0):v;save()}function delIncome(i){state.income.splice(i,1);save()}function addIncome(){let person=prompt('Person:','Darius');if(person===null)return;let source=prompt('Income source:','Employment');let net=+(prompt('Net monthly:','0')||0);state.income.push({id:uid(),person,source,gross:net,net,frequency:'Monthly',start:'',status:'Active'});save()}
+function renderSavings(){let total=state.savings.reduce((a,x)=>a+(+x.balance||0),0),adds=state.savings.reduce((a,x)=>a+(+x.add||0),0),home=state.savings.filter(x=>/home|va/i.test(x.purpose)).reduce((a,x)=>a+(+x.balance||0),0),em=state.savings.filter(x=>/emergency/i.test(x.purpose)).reduce((a,x)=>a+(+x.balance||0),0);$('cashTotal').textContent=money(total);$('homeFunds').textContent=money(home);$('emergency').textContent=money(em);$('cashAdd').textContent=money(adds);$('saveRows').innerHTML=state.savings.map((x,i)=>'<tr><td><input value="'+esc(x.name)+'" onchange="editSave('+i+',\'name\',this.value)"></td><td><input value="'+esc(x.purpose)+'" onchange="editSave('+i+',\'purpose\',this.value)"></td><td><input type="number" step="0.01" value="'+x.balance+'" onchange="editSave('+i+',\'balance\',this.value)"></td><td><input type="number" step="0.01" value="'+x.add+'" onchange="editSave('+i+',\'add\',this.value)"></td><td><input type="number" step="0.01" value="'+x.target+'" onchange="editSave('+i+',\'target\',this.value)"></td><td><button type="button" class="btn danger" onclick="delSavings('+i+')">×</button></td></tr>').join('')}
+function editSave(i,k,v){state.savings[i][k]=(k==='name'||k==='purpose')?v:(+v||0);save()}function delSavings(i){state.savings.splice(i,1);save()}function addSavings(){let name=prompt('Account name:','New Savings');if(name===null)return;let purpose=prompt('Purpose:','General');let bal=+(prompt('Current balance:','0')||0);let target=+(prompt('Target:','0')||0);state.savings.push({id:uid(),name,purpose,balance:bal,add:0,target});save()}
+function renderCollections(){$('collectionRows').innerHTML=state.collections.map((x,i)=>'<tr><td><input value="'+esc(x.creditor)+'" onchange="editCollection('+i+',\'creditor\',this.value)"></td><td><input type="number" step="0.01" value="'+x.original+'" onchange="editCollection('+i+',\'original\',this.value)"></td><td><input type="number" step="0.01" value="'+x.balance+'" onchange="editCollection('+i+',\'balance\',this.value)"></td><td><input value="'+esc(x.type)+'" onchange="editCollection('+i+',\'type\',this.value)"></td><td><input value="'+esc(x.action)+'" onchange="editCollection('+i+',\'action\',this.value)"></td><td><input type="date" value="'+esc(x.next||'')+'" onchange="editCollection('+i+',\'next\',this.value)"></td><td><input value="'+esc(x.status)+'" onchange="editCollection('+i+',\'status\',this.value)"></td><td><button type="button" class="btn danger" onclick="delCollection('+i+')">×</button></td></tr>').join('')}
+function editCollection(i,k,v){state.collections[i][k]=(k==='original'||k==='balance')?(+v||0):v;save()}function delCollection(i){state.collections.splice(i,1);save()}function addCollection(){let creditor=prompt('Creditor / collector:','');if(creditor===null)return;let bal=+(prompt('Current balance:','0')||0);let action=prompt('Next action:','Verify / validate');let next=prompt('Next action date:','');state.collections.push({id:uid(),creditor,original:bal,balance:bal,type:'Collection',action,next,status:'Open'});save()}
+function renderGoals(){$('goalList').innerHTML=state.goals.map((x,i)=>'<div class="item"><div class="sectionhead"><input value="'+esc(x.name)+'" onchange="editGoal('+i+',\'name\',this.value)" style="font-weight:700"><input value="'+esc(x.status)+'" onchange="editGoal('+i+',\'status\',this.value)" style="max-width:140px"></div><div class="small">Target <input value="'+esc(x.target)+'" onchange="editGoal('+i+',\'target\',this.value)"> • Current <input value="'+esc(x.current)+'" onchange="editGoal('+i+',\'current\',this.value)"> • Due <input type="date" value="'+esc(x.due)+'" onchange="editGoal('+i+',\'due\',this.value)"></div><button type="button" class="btn danger" onclick="delGoal('+i+')">Delete</button></div>').join('')}
+function editGoal(i,k,v){state.goals[i][k]=v;save()}function delGoal(i){state.goals.splice(i,1);save()}
+function pmt(rate,n,pv){let r=rate/1200;return r?pv*r*Math.pow(1+r,n)/(Math.pow(1+r,n)-1):pv/n}
+function renderHome(){let h=state.home;['price','rate','tax','ins','hoa','earnest','close','furniture','reserve'].forEach(k=>$('h'+k[0].toUpperCase()+k.slice(1)).value=h[k]);let pi=pmt(h.rate,360,h.price),tax=h.price*h.tax/100/12,housing=pi+tax+h.ins+h.hoa,need=h.earnest+h.close+h.furniture+h.reserve;let income=state.income.reduce((a,x)=>a+(+x.net||0),0),non=state.debts.reduce((a,x)=>a+(+x.min||0),0);$('pi').textContent=money(pi);$('housing').textContent=money(housing);$('cashNeed').textContent=money(need);$('homeDti').textContent=(income?((housing+non)/income*100).toFixed(1):'0')+'%'}
+function saveHome(){let h={};['Price','Rate','Tax','Ins','Hoa','Earnest','Close','Furniture','Reserve'].forEach(k=>h[k.toLowerCase()]=+$('h'+k).value||0);state.home=h;save()}
+function renderCRM(){$('taskList').innerHTML=state.tasks.map((x,i)=>'<div class="item"><b>'+esc(x.name)+'</b><div class="small">'+esc(x.due)+' • '+esc(x.status)+'</div><button type="button" class="btn ghost" onclick="state.tasks[i].status=state.tasks[i].status==='Done'?'Open':'Done';save()">Toggle</button></div>').join('');$('notesList').innerHTML=state.notes.slice().reverse().map((x,i)=>'<div class="item"><b>'+esc(x.date)+'</b><div>'+esc(x.text)+'</div></div>').join('')}
+function addTask(){normalizeState();let name=prompt('Task:','');if(name===null||!name.trim())return;let due=prompt('Due:','Monthly');if(due===null)return;state.tasks.push({id:uid(),name:name.trim(),due:due.trim()||'Monthly',status:'Open'});save()}
+function addNote(){normalizeState();let box=$('crmNote');let t=box?box.value.trim():'';if(!t){alert('Enter a note first.');return}state.notes.push({id:uid(),date:new Date().toLocaleString(),text:t});if(box)box.value='';save()}
+function renderClose(){let keys=['Update debt balances','Record credit scores','Reconcile savings','Review collections','Review budget variance','Export backup'];$('closeList').innerHTML=keys.map(k=>'<div class="item">□ '+k+'</div>').join('')}
+function exportData(){let b=new Blob([JSON.stringify(state,null,2)],{type:'application/json'}),a=document.createElement('a');a.href=URL.createObjectURL(b);a.download='luna-family-crm-backup-'+new Date().toISOString().slice(0,10)+'.json';a.click()}
+function importData(e){let f=e.target.files[0];if(!f)return;let r=new FileReader();r.onload=()=>{try{state=JSON.parse(r.result);save();alert('Luna Family CRM backup imported.')}catch{alert('Invalid CRM backup.')}};r.readAsText(f)}
+function $(id){return document.getElementById(id)}
+try{renderAll()}catch(e){
+  console.error('Luna Family CRM render error:',e);
+  const ebox=document.createElement('div');
+  ebox.style='position:fixed;left:12px;right:12px;bottom:12px;background:#8b1e2d;color:#fff;padding:12px;border-radius:10px;z-index:9999;font:14px Arial';
+  ebox.textContent='CRM startup error: '+e.message;
+  document.body.appendChild(ebox);
+}
+</script>
+<script>
+(function(){
+  function fallbackShow(id,btn){
+    var v=document.getElementById(id); if(!v)return;
+    document.querySelectorAll('.view').forEach(function(x){x.classList.remove('on')});
+    v.classList.add('on');
+    document.querySelectorAll('.tabs button').forEach(function(x){x.classList.remove('on')});
+    if(btn)btn.classList.add('on');
+  }
+  document.addEventListener('DOMContentLoaded',function(){
+    var lb=document.getElementById('loadExcelBtn');
+    if(lb) lb.addEventListener('click',function(ev){ev.preventDefault(); if(typeof window.LUNA_EXCEL_V11_LOAD==='function') window.LUNA_EXCEL_V11_LOAD();});
+
+    document.querySelectorAll('.tabs button[data-tab]').forEach(function(btn){
+      btn.addEventListener('click',function(ev){
+        ev.preventDefault();
+        var id=btn.getAttribute('data-tab');
+        if(typeof window.show==='function') window.show(id,btn); else fallbackShow(id,btn);
+      });
+    });
+    var logo=document.querySelector('.cat img');
+    if(logo) logo.addEventListener('error',function(){logo.src='data:image/svg+xml,%3Csvg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 200 200"%3E%3Crect width="200" height="200" rx="36" fill="%23f7f2e7"/%3E%3Cpath d="M42 76V42l34 20c14-8 34-8 48 0l34-20v34c8 12 12 25 12 39 0 39-27 62-70 62s-70-23-70-62c0-14 4-27 12-39Z" fill="%23c9a34a" stroke="%230b1d33" stroke-width="8"/%3E%3Ccircle cx="78" cy="111" r="8" fill="%230b1d33"/%3E%3Ccircle cx="122" cy="111" r="8" fill="%230b1d33"/%3E%3Cpath d="M92 132q8 8 16 0M61 126l-27-4M61 137l-28 5M139 126l27-4M139 137l28 5" fill="none" stroke="%230b1d33" stroke-width="5" stroke-linecap="round"/%3E%3C/svg%3E'});
+    var tag=document.getElementById('buildTag');
+    if(tag) tag.textContent='V11 • EXCEL DATA LOADED';
+  });
+  window.addEventListener('error',function(ev){
+    var b=document.getElementById('crm-js-error');
+    if(!b){b=document.createElement('div');b.id='crm-js-error';b.style='position:fixed;left:12px;right:12px;bottom:12px;background:#8b1e2d;color:#fff;padding:12px;border-radius:10px;z-index:99999;font:13px Arial';document.body.appendChild(b)}
+    b.textContent='CRM JavaScript error: '+(ev.message||'Unknown error');
+  });
+})();
+</script>
+<script>
+(function(){
+  var DATA={"source":"Household financial worksheet imported from user-provided Excel data","strategy":"Snowball","budget":{"income":7460.65,"save":0,"rent":2200,"util":185.06,"ins":406.43,"food":516.1,"gas":350,"misc":903.24},"debts":[["CarMax - Benzo","Auto",33463.4,500],["Care Credit - Synchrony","Credit Card",795.46,65],["Comenity - Kay Jew","Credit Card",5539.36,192],["Capital One - CC","Credit Card",860.92,81],["Wells Fargo - Ashley","Credit Card",3366.41,164.62],["Military Star - A","Credit Card",6015.67,160],["Credit9 - A","Settlement",17642.56,836.6],["USAA Amex","Credit Card",13981.65,320],["Exeter - Ram","Auto",22636.94,473.93],["Tesla - AUTO","Auto",11224.68,350],["IRS - 2021","Tax",11659.48,0],["IRS - 2024","Tax",16325.54,0],["IRS - 2025","Tax",9526,0],["UNM ER","Medical",441.6,0],["Alimony / DFAS","Obligation",0,2241]],"credit":{"goal":680,"history":[{"date":"2026-10-01","bureau":"TransUnion","score":566,"util":"","reason":"Excel baseline"}]},"income":[["Darius","Retirement",2709.84,2709.84,"Monthly","Active"],["Darius","VA Disability",4176.04,4176.04,"Monthly","Active"],["Household","Additional Deposits",343.18,343.18,"Other","Recorded"],["Household","Additional Deposits",21.65,21.65,"Other","Recorded"]],"savings":[["Savings","Savings",0,0,15000]],"collections":[["Kay Jewel",1430.15,1430.15,"Collection","Paid / disputed","","Paid"],["ER",1792,1792,"Collection","Call VA and verify payment","","Open"],["Attorney",5869.96,5869.96,"Collection","Call / setup payment plan","","Open"],["Jax Apt",3002.11,3002.11,"Collection","Disputed - no response","","Disputed"],["PrimePest",460.05,460.05,"Collection","Disputed","","Disputed"]],"goals":[["Credit score","680+","566","2027-06-01","In Progress"],["Emergency reserve","$15,000","$0","2027-08-01","In Progress"],["VA pre-approval","June 2027","Not started","2027-06-15","Planned"],["Contract","Aug 15, 2027","Not started","2027-08-15","Planned"],["Keys in hand","Nov 1, 2027","Not started","2027-11-01","Planned"]],"tasks":[["Update debt balances","Monthly"],["Record credit scores","Monthly"],["Reconcile savings","Monthly"],["Export CRM backup","Month-end"]],"notes":[["Excel import","Imported from household financial worksheet. Source shows total monthly debt of $7,442.07 and collection balance of $11,124.12."]],"home":{"price":350000,"rate":7.24,"tax":2,"ins":180,"hoa":0,"earnest":5000,"close":9000,"furniture":5000,"reserve":15000},"close":{}};
+  function make(){
+    function id(){return Date.now().toString(36)+Math.random().toString(36).slice(2,6)}
+    return {
+      source:DATA.source,strategy:DATA.strategy,budget:DATA.budget,
+      debts:DATA.debts.map(function(x,i){return{id:id(),name:x[0],type:x[1],balance:x[2],original:x[2],apr:0,min:x[3],priority:i+1,status:x[1]==='Obligation'?'Recurring':'Open'}}),
+      credit:{goal:DATA.credit.goal,history:DATA.credit.history.map(function(x){x.id=id();return x})},
+      income:DATA.income.map(function(x){return{id:id(),person:x[0],source:x[1],gross:x[2],net:x[3],frequency:x[4],start:'',status:x[5]}}),
+      savings:DATA.savings.map(function(x){return{id:id(),name:x[0],purpose:x[1],balance:x[2],add:x[3],target:x[4]}}),
+      collections:DATA.collections.map(function(x){return{id:id(),creditor:x[0],original:x[1],balance:x[2],type:x[3],action:x[4],next:x[5],status:x[6]}}),
+      goals:DATA.goals.map(function(x){return{id:id(),name:x[0],target:x[1],current:x[2],due:x[3],status:x[4]}}),
+      tasks:DATA.tasks.map(function(x){return{id:id(),name:x[0],due:x[1],status:'Open'}}),
+      notes:DATA.notes.map(function(x){return{id:id(),date:x[0],text:x[1]}}),
+      home:DATA.home,close:DATA.close,_excelImportedV11:true,_source:'EXCEL SNAPSHOT — V11 DIRECT LOAD'
+    };
+  }
+  window.LUNA_EXCEL_V11_LOAD=function(){
+    var s=make();
+    state=s; normalizeState(); localStorage.setItem(KEY,JSON.stringify(state)); renderAll(); var st=document.getElementById('excelStatus');
+    if(st)st.textContent='✓ Excel snapshot loaded: 15 debts, 5 collections, 4 income records, 5 goals.';
+    
+  };
+  var old=localStorage.getItem(KEY);
+  if(!old){localStorage.setItem(KEY,JSON.stringify(make()));}
+  document.addEventListener('DOMContentLoaded',function(){
+    var lb=document.getElementById('loadExcelBtn');
+    if(lb)lb.onclick=function(e){e.preventDefault();window.LUNA_EXCEL_V11_LOAD();};
+  });
+})();
+</script></body>
+</html>
